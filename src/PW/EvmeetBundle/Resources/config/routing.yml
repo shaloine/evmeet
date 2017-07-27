@@ -1,0 +1,30 @@
+pw_evmeet_homepage:
+    path:     /
+    defaults:
+        _controller: PWEvmeetBundle:Core:index
+
+pw_evmeet_liste:
+    path:     /liste
+    defaults:
+        _controller: PWEvmeetBundle:Core:liste
+
+pw_evmeet_creation:
+    path:     /creation
+    defaults:
+        _controller: PWEvmeetBundle:Core:creation
+
+pw_evmeet_detail:
+    path:     /detail/{id}
+    defaults:
+        _controller: PWEvmeetBundle:Core:detail
+    requirements:
+        id: \d*
+
+pw_evmeet_detail:
+    path:     /profil
+    defaults:
+        _controller: PWEvmeetBundle:Core:profil
+
+
+
+

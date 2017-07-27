@@ -1,3 +1,4 @@
-app:
-    resource: '@AppBundle/Controller/'
-    type: annotation
+pw_evmeet:
+    resource: "@PWEvmeetBundle/Resources/config/routing.yml"
+    prefix:   /
+
