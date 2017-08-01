@@ -50,7 +50,9 @@ class Article
     private $niveauMax;
 
     /**
+     * @var string
      *
+     * @ORM\Column(name="commentaire", type="text")
      */
     private $commentaire;
 
