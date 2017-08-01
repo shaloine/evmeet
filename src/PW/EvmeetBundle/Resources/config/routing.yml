@@ -20,7 +20,7 @@ pw_evmeet_detail:
     requirements:
         id: \d*
 
-pw_evmeet_detail:
+pw_evmeet_profil:
     path:     /profil
     defaults:
         _controller: PWEvmeetBundle:Core:profil
