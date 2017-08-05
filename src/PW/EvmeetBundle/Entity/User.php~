@@ -32,9 +32,12 @@ class User extends BaseUser
     public function __construct()
     {
         parent::__construct();
-         $this->articles[] = $article;
+        
+        $this->articles[] = $article;
+        $article->setUser($this);
 
-    	$article->setUser($this);
+        $this->comments[] = $comment;
+        $comment->setUser($this);
     }
 
     /**
@@ -69,5 +72,39 @@ class User extends BaseUser
     public function getArticles()
     {
         return $this->articles;
+    }
+
+    /**
+     * Add comment
+     *
+     * @param \PW\EvmeetBundle\Entity\Comment $comment
+     *
+     * @return User
+     */
+    public function addComment(\PW\EvmeetBundle\Entity\Comment $comment)
+    {
+        $this->comments[] = $comment;
+
+        return $this;
+    }
+
+    /**
+     * Remove comment
+     *
+     * @param \PW\EvmeetBundle\Entity\Comment $comment
+     */
+    public function removeComment(\PW\EvmeetBundle\Entity\Comment $comment)
+    {
+        $this->comments->removeElement($comment);
+    }
+
+    /**
+     * Get comments
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getComments()
+    {
+        return $this->comments;
     }
 }

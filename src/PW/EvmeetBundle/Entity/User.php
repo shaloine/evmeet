@@ -32,9 +32,12 @@ class User extends BaseUser
     public function __construct()
     {
         parent::__construct();
-         $this->articles[] = $article;
+        
+        $this->articles[] = $article;
+        $article->setUser($this);
 
-    	$article->setUser($this);
+        $this->comments[] = $comment;
+        $comment->setUser($this);
     }
 
     /**
