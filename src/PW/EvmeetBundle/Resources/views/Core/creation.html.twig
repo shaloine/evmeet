@@ -1,9 +1,9 @@
-<html>
+{% extends "PWEvmeetBundle::layout.html.twig" %}
 
-  <body>
+{% block body %}
+	<div class="well">
 
-    Hello World!
+  {{ form(form) }}
 
-  </body>
-
-</html>
+</div>
+{% endblock %}

@@ -22,9 +22,9 @@ class Article
     private $id;
 
     /**
-     * @var string
+     * @var integer
      *
-     * @ORM\Column(name="lieu", type="string", length=255)
+     * @ORM\Column(name="lieu", type="integer", length=255)
      */
     private $lieu;
 
