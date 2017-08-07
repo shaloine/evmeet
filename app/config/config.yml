@@ -22,7 +22,7 @@ framework:
     templating:
         engines: ['twig']
     default_locale: fr
-    translator: { fallback: fr }
+    translator: { fallback: ['%locale%'] }
     trusted_hosts: ~
     session:
         # https://symfony.com/doc/current/reference/configuration/framework.html#handler-id

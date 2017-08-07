@@ -1,9 +1,76 @@
 {% extends "PWEvmeetBundle::layout.html.twig" %}
 
+{% block stylesheets %}
+  {{ parent() }}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker3.css"></script>
+  {% endblock %}
+
 {% block body %}
-	<div class="well">
 
-  {{ form(form) }}
+  {{ form_start(form) }}
 
-</div>
+    <div class="form-group">
+		{{ form_label(form.lieu) }}
+		{{ form_errors(form.lieu) }}
+		{{ form_widget(form.lieu, {'attr': {'class': 'form-control'}}) }}
+	</div>
+
+	<div class="form-group">
+		{{ form_label(form.dateInvitation) }}
+		{{ form_errors(form.dateInvitation) }}
+		{{ form_widget(form.dateInvitation, {'attr': {'class': 'form-control js-datepicker'}}) }}
+	</div>
+
+	<div class="form-group">
+		{{ form_label(form.niveauMin) }}
+		{{ form_errors(form.niveauMin) }}
+		{{ form_widget(form.niveauMin, {'attr': {'class': 'form-control'}}) }}
+	</div>
+
+	<div class="form-group">
+		{{ form_label(form.niveauMax) }}
+		{{ form_errors(form.niveauMax) }}
+		{{ form_widget(form.niveauMax, {'attr': {'class': 'form-control'}}) }}
+	</div>
+
+	<div class="form-group">
+		{{ form_label(form.commentaire) }}
+		{{ form_errors(form.commentaire) }}
+		{{ form_widget(form.commentaire, {'attr': {'class': 'form-control'}}) }}
+	</div>
+
+	{{ form_widget(form.save, {'attr': {'class': 'btn  btn-default'}}) }}
+
+    {{ form_widget(form) }}
+
+    
+{{ form_end(form) }}
+
 {% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+  <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/js/bootstrap-datepicker.min.js"></script>
+  <script>
+  $.fn.datepicker.dates['fr'] = {
+      days: ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"],
+      daysShort: ["Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"],
+      daysMin: ["Di", "Lu", "Ma", "Me", "Je", "Ve", "Sa"],
+      months: ["Janvier", "Fevrier", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Decembre"],
+      monthsShort: ["Jan", "Fev", "Mar", "Avr", "Mai", "Juin", "Juil", "Aoû", "Sep", "Oct", "Nov", "Dec"],
+      today: "Aujourd'hui",
+      clear: "Effacer",
+      format: "dd/mm/yyyy",
+      titleFormat: "MM yyyy", /* Leverages same syntax as 'format' */
+      weekStart: 1
+    };
+
+    jQuery(document).ready(function() {
+      $('.js-datepicker').datepicker({
+        format: 'dd/mm/yyyy',
+        startDate: 'd',
+        language: 'fr',
+      });
+    });
+  </script>
+ {% endblock %}
