@@ -11,55 +11,63 @@ use PW\EvmeetBundle\Form\ArticleType;
 
 class CoreController extends Controller
 {
-    public function indexAction()
-    {
-        return $this->render('PWEvmeetBundle:Core:index.html.twig');
-    }
-    public function listeAction()
-    {
-        return $this->render('PWEvmeetBundle:Core:liste.html.twig');
-    }
-    public function creationAction(Request $request)
-    {
+	public function indexAction()
+	{
+		return $this->render('PWEvmeetBundle:Core:index.html.twig');
+	}
+	public function listeAction()
+	{
+		return $this->render('PWEvmeetBundle:Core:liste.html.twig');
+	}
+	public function creationAction(Request $request)
+	{
 
-        if ($this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
-            
-            $article = new Article();
-            $form   = $this->get('form.factory')->create(ArticleType::class, $article);
+		if ($this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
 
-            if ($request->isMethod('POST')) {
+			$article = new Article();
+			$form   = $this->get('form.factory')->create(ArticleType::class, $article);
 
-            	$form->handleRequest($request);
+			if ($request->isMethod('POST')) {
 
-            	if ($form->isValid()) {
+				$form->handleRequest($request);
 
-            		$article->setUser( $this->getUser());
+				$levelControl = $this->container->get('pw_evmeet.levelControl');
 
-            		$em = $this->getDoctrine()->getManager();
-      				$em->persist($article);
-      				$em->flush();
+				if ($levelControl->isLevelCorrect($article)){
 
-      				$request->getSession()->getFlashBag()->add('notice', 'Annonce enregistrée');
+					if ($form->isValid()) {
 
-            	}
+						$article->setUser( $this->getUser());
 
-            }
+						$em = $this->getDoctrine()->getManager();
+						$em->persist($article);
+						$em->flush();
 
-            return $this->render('PWEvmeetBundle:Core:creation.html.twig', array(
-                'form' => $form->createView(),
-            ));
-        }
-        
-        return $this->redirectToRoute('pw_evmeet_homepage');
-        
-    }
-    public function detailAction($id)
-    {
-        return $this->render('PWEvmeetBundle:Core:detail.html.twig');
-    }
-    public function profilAction()
-    {
-        return $this->render('PWEvmeetBundle:Core:profil.html.twig');
-    }
+						$request->getSession()->getFlashBag()->add('notice', 'Annonce enregistrée');
+
+					}
+
+				}
+
+				$request->getSession()->getFlashBag()->add('notice', 'Le niveau min ne peut être supérieur au niveau max');
+
+			}
+
+			return $this->render('PWEvmeetBundle:Core:creation.html.twig', array(
+				'form' => $form->createView(),
+				));
+		}
+
+		return $this->redirectToRoute('pw_evmeet_homepage');
+
+	}
+	public function detailAction($id)
+	{
+		return $this->render('PWEvmeetBundle:Core:detail.html.twig');
+	}
+	public function profilAction()
+	{
+		return $this->render('PWEvmeetBundle:Core:profil.html.twig');
+	}
 
 }
