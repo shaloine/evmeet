@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
 use PW\EvmeetBundle\Entity\Article;
+use PW\EvmeetBundle\Entity\User;
 use PW\EvmeetBundle\Form\ArticleType;
 
 class CoreController extends Controller
@@ -25,6 +26,17 @@ class CoreController extends Controller
             
             $article = new Article();
             $form   = $this->get('form.factory')->create(ArticleType::class, $article);
+
+            if ($request->isMethod('POST')) {
+
+            	$form->handleRequest($request);
+
+
+
+
+            	}
+
+            }
 
             return $this->render('PWEvmeetBundle:Core:creation.html.twig', array(
                 'form' => $form->createView(),

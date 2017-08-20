@@ -31,7 +31,7 @@ class Article
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="dateInvitation", type="date")
+     * @ORM\Column(name="dateInvitation", type="datetime")
      */
     private $dateInvitation;
 
@@ -52,7 +52,7 @@ class Article
     /**
      * @var string
      *
-     * @ORM\Column(name="commentaire", type="text")
+     * @ORM\Column(name="commentaire", type="text", nullable=true)
      */
     private $commentaire;
 
@@ -65,7 +65,7 @@ class Article
 
     public function __construct()
     {
-      
+      $this->dateInvitation = new \Datetime();
     }
 
     

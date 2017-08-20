@@ -40,4 +40,62 @@ class Comment
       
     }
 
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set content
+     *
+     * @param string $content
+     *
+     * @return Comment
+     */
+    public function setContent($content)
+    {
+        $this->content = $content;
+
+        return $this;
+    }
+
+    /**
+     * Get content
+     *
+     * @return string
+     */
+    public function getContent()
+    {
+        return $this->content;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \PW\EvmeetBundle\Entity\User $user
+     *
+     * @return Comment
+     */
+    public function setUser(\PW\EvmeetBundle\Entity\User $user)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \PW\EvmeetBundle\Entity\User
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
 }

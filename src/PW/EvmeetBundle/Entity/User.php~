@@ -5,6 +5,7 @@ namespace PW\EvmeetBundle\Entity;
 
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity
@@ -33,11 +34,9 @@ class User extends BaseUser
     {
         parent::__construct();
         
-        $this->articles[] = $article;
-        $article->setUser($this);
-
-        $this->comments[] = $comment;
-        $comment->setUser($this);
+        $this->articles = new ArrayCollection();
+        $this->comments = new ArrayCollection();
+        $this->roles[] = 'ROLE_USER';
     }
 
     /**
