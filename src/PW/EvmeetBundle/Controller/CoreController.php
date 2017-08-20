@@ -31,8 +31,15 @@ class CoreController extends Controller
 
             	$form->handleRequest($request);
 
+            	if ($form->isValid()) {
 
+            		$article->setUser( $this->getUser());
 
+            		$em = $this->getDoctrine()->getManager();
+      				$em->persist($article);
+      				$em->flush();
+
+      				$request->getSession()->getFlashBag()->add('notice', 'Annonce enregistrée');
 
             	}
 
