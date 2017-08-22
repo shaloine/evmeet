@@ -1,3 +1,5 @@
 services:
     pw_evmeet.levelControl:
         class: PW\EvmeetBundle\Services\PWLevelControl
+    pw_evmeet.levelTranslate:
+        class: PW\EvmeetBundle\Services\PWLevelTranslate

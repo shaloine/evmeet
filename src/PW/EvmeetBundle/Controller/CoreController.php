@@ -48,9 +48,9 @@ class CoreController extends Controller
 					}
 
 				}
-
-				$request->getSession()->getFlashBag()->add('notice', 'Le niveau min ne peut être supérieur au niveau max');
-
+				else {
+					$request->getSession()->getFlashBag()->add('notice', 'Le niveau min ne peut être supérieur au niveau max');
+				}
 			}
 
 			return $this->render('PWEvmeetBundle:Core:creation.html.twig', array(
@@ -63,7 +63,20 @@ class CoreController extends Controller
 	}
 	public function detailAction($id)
 	{
-		return $this->render('PWEvmeetBundle:Core:detail.html.twig');
+		$repository = $this->getDoctrine()
+      	->getManager()
+      	->getRepository('PWEvmeetBundle:Article')
+    	;
+
+    	$article = $repository->find($id);
+
+    	if (null === $article) {
+      	return $this->redirectToRoute('pw_evmeet_liste');
+    	}
+
+		return $this->render('PWEvmeetBundle:Core:detail.html.twig', array(
+      	'article' => $article
+      	));
 	}
 	public function profilAction()
 	{
