@@ -6,8 +6,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
 use PW\EvmeetBundle\Entity\Article;
+use PW\EvmeetBundle\Entity\Comment;
 use PW\EvmeetBundle\Entity\User;
 use PW\EvmeetBundle\Form\ArticleType;
+use PW\EvmeetBundle\Form\CommentType;
 
 class CoreController extends Controller
 {
@@ -15,10 +17,12 @@ class CoreController extends Controller
 	{
 		return $this->render('PWEvmeetBundle:Core:index.html.twig');
 	}
+
 	public function listeAction()
 	{
 		return $this->render('PWEvmeetBundle:Core:liste.html.twig');
 	}
+
 	public function creationAction(Request $request)
 	{
 
@@ -61,23 +65,50 @@ class CoreController extends Controller
 		return $this->redirectToRoute('pw_evmeet_homepage');
 
 	}
-	public function detailAction($id)
+
+	public function detailAction($id, Request $request)
 	{
+		$comment = new Comment();
+		$form   = $this->get('form.factory')->create(CommentType::class, $comment);
+
+		if ($request->isMethod('POST')) {
+
+			$form->handleRequest($request);
+
+			if ($form->isValid()) {
+
+				$comment->setUser( $this->getUser());
+
+				$em = $this->getDoctrine()->getManager();
+				$em->persist($comment);
+				$em->flush();
+
+				// to clear the form
+				$comment = new Comment();
+				$form   = $this->get('form.factory')->create(CommentType::class, $comment);
+
+			}
+
+
+		}
+
 		$repository = $this->getDoctrine()
-      	->getManager()
-      	->getRepository('PWEvmeetBundle:Article')
-    	;
+		->getManager()
+		->getRepository('PWEvmeetBundle:Article')
+		;
 
-    	$article = $repository->find($id);
+		$article = $repository->find($id);
 
-    	if (null === $article) {
-      	return $this->redirectToRoute('pw_evmeet_liste');
-    	}
+		if (null === $article) {
+			return $this->redirectToRoute('pw_evmeet_liste');
+		}
 
 		return $this->render('PWEvmeetBundle:Core:detail.html.twig', array(
-      	'article' => $article
-      	));
+			'article' => $article,
+			'form' => $form->createView(),
+			));
 	}
+
 	public function profilAction()
 	{
 		return $this->render('PWEvmeetBundle:Core:profil.html.twig');

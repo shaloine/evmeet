@@ -23,7 +23,7 @@ class ArticleType extends AbstractType
             ->add('niveauMin', ChoiceType::class, array('choices' => array('4A' => 1, '4B' => 2, '4C' => 3,'5A' => 4, '5B' => 5, '5C' => 6,'6A' => 7, '6B' => 8, '6C' => 9,'7A' => 10, '7B' => 11, '7C' => 12, '8A' => 13)))
             ->add('niveauMax', ChoiceType::class, array('choices' => array('4A' => 1, '4B' => 2, '4C' => 3,'5A' => 4, '5B' => 5, '5C' => 6,'6A' => 7, '6B' => 8, '6C' => 9,'7A' => 10, '7B' => 11, '7C' => 12, '8A' => 13)))
             ->add('commentaire', TextareaType::class, array('required' => false))
-            ->add('save', SubmitType::class);
+            ->add('save', SubmitType::class, array('label' => 'Enregistrer'));
     }
     
     /**

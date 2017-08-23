@@ -38,6 +38,8 @@ framework:
 twig:
     debug: '%kernel.debug%'
     strict_variables: '%kernel.debug%'
+    globals:
+        levelTranslate: '@pw_evmeet.levelTranslate'
 
 # Doctrine Configuration
 doctrine:

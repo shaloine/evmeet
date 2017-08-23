@@ -1,7 +1,35 @@
 {% extends "PWEvmeetBundle::layout.html.twig" %}
 
 {% block body %}
+
 	<h3>{{ article.lieu }} - {{ article.dateInvitation|date('d/m/Y') }}</h3>
 	<p>Posté par {{ article.user.username }}</p>
-	<p>Niveau : {{ article.niveauMin }} / {{ article.niveauMax }}
+	<p>Niveau : {{ levelTranslate.translate(article.niveauMin) }} / {{ levelTranslate.translate(article.niveauMax) }}</p>
+	
+	{% if article.commentaire is not null %}
+		<h4>Commentaire</h4>
+		<p>{{ article.commentaire }}</p>
+	{% endif %}
+
+	{% if is_granted('ROLE_USER') %}
+
+		<h4>Poser une question</h4>
+
+		{{ form_start(form) }}
+
+		<div class="form-group">
+			{{ form_errors(form.content) }}
+			{{ form_widget(form.content, {'attr': {'class': 'form-control'}}) }}
+		</div>
+
+		{{ form_widget(form.save, {'attr': {'class': 'btn  btn-default', 'value' : ' '}}) }}
+
+		{{ form_widget(form) }}
+
+		{{ form_end(form) }}
+
+	{% else %}    
+		<p><a href="{{ path('fos_user_security_login') }}" >Connectez-vous</a> ou <a href="{{ path('fos_user_registration_register')}}">inscrivez-vous</a> pour poser une question</p>
+	{% endif %}
+
 {% endblock %}
