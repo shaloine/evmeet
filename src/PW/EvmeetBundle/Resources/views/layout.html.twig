@@ -26,7 +26,9 @@
       </div>
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav navbar-right">
+            <li><a href="{{ path('pw_evmeet_liste') }}">Annonces</a></li>
           {% if is_granted('ROLE_USER') %}
+            <li><a href="{{ path('pw_evmeet_creation') }}">Créer une annonce</a></li>
             <li><a href="{{ path('pw_evmeet_profil') }}">Mon profil</a></li>
             <li><a href="{{ path('fos_user_security_logout') }}">Se deconnecter</a></li>
           {% else %}    

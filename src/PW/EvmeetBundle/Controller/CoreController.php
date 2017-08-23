@@ -71,6 +71,8 @@ class CoreController extends Controller
 		$comment = new Comment();
 		$form   = $this->get('form.factory')->create(CommentType::class, $comment);
 
+		$em = $this->getDoctrine()->getManager();
+
 		if ($request->isMethod('POST')) {
 
 			$form->handleRequest($request);
@@ -78,8 +80,8 @@ class CoreController extends Controller
 			if ($form->isValid()) {
 
 				$comment->setUser( $this->getUser());
+				$comment->setArticleID($id);
 
-				$em = $this->getDoctrine()->getManager();
 				$em->persist($comment);
 				$em->flush();
 
@@ -92,12 +94,9 @@ class CoreController extends Controller
 
 		}
 
-		$repository = $this->getDoctrine()
-		->getManager()
-		->getRepository('PWEvmeetBundle:Article')
-		;
-
-		$article = $repository->find($id);
+		$article = $em->getRepository('PWEvmeetBundle:Article')->find($id);
+		$comments = $em->getRepository('PWEvmeetBundle:Comment')->findBY(array('articleID' => $id));
+	
 
 		if (null === $article) {
 			return $this->redirectToRoute('pw_evmeet_liste');
@@ -106,12 +105,32 @@ class CoreController extends Controller
 		return $this->render('PWEvmeetBundle:Core:detail.html.twig', array(
 			'article' => $article,
 			'form' => $form->createView(),
+			'comments' => $comments
 			));
 	}
 
 	public function profilAction()
 	{
-		return $this->render('PWEvmeetBundle:Core:profil.html.twig');
+		$em = $this->getDoctrine()->getManager();
+		$articles = $em->getRepository('PWEvmeetBundle:Article')->findBY(array('user' => $this->getUser()));
+
+		return $this->render('PWEvmeetBundle:Core:profil.html.twig', array(
+			'articles' => $articles,
+			));
+	}
+
+	public function deleteArticleAction($id)
+	{
+		$em = $this->getDoctrine()->getManager();
+		$article = $em->getRepository('PWEvmeetBundle:Article')->find($id);
+		$em->remove($article);
+		$em->flush();
+
+		$articles = $em->getRepository('PWEvmeetBundle:Article')->findBY(array('user' => $this->getUser()));
+
+		return $this->render('PWEvmeetBundle:Core:profil.html.twig', array(
+			'articles' => $articles,
+			));
 	}
 
 }

@@ -34,6 +34,13 @@ class Comment
      */
     private $user;
 
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="articleId", type="integer")
+     */
+    private $articleID;
+
 
     public function __construct()
     {
@@ -97,5 +104,29 @@ class Comment
     public function getUser()
     {
         return $this->user;
+    }
+
+    /**
+     * Set articleID
+     *
+     * @param integer $articleID
+     *
+     * @return Comment
+     */
+    public function setArticleID($articleID)
+    {
+        $this->articleID = $articleID;
+
+        return $this;
+    }
+
+    /**
+     * Get articleID
+     *
+     * @return integer
+     */
+    public function getArticleID()
+    {
+        return $this->articleID;
     }
 }

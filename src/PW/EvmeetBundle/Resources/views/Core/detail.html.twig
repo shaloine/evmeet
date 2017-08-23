@@ -32,4 +32,14 @@
 		<p><a href="{{ path('fos_user_security_login') }}" >Connectez-vous</a> ou <a href="{{ path('fos_user_registration_register')}}">inscrivez-vous</a> pour poser une question</p>
 	{% endif %}
 
+	{% if comments is not empty %}
+		<h4>Questions</h4>
+		{% for comment in comments %}
+			<div>
+				<p>{{ comment.user.username }}</p>
+				<p>{{ comment.content }}</p>
+			</div>
+		{% endfor %}
+	{% endif %}
+
 {% endblock %}
