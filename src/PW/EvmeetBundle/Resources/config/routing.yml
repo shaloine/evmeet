@@ -25,6 +25,11 @@ pw_evmeet_profil:
     defaults:
         _controller: PWEvmeetBundle:Core:profil
 
+pw_evmeet_delete:
+    path:     /delete/{id}
+    defaults:
+        _controller: PWEvmeetBundle:Core:deleteArticle
+
 
 
 

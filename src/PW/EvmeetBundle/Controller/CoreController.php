@@ -96,7 +96,7 @@ class CoreController extends Controller
 
 		$article = $em->getRepository('PWEvmeetBundle:Article')->find($id);
 		$comments = $em->getRepository('PWEvmeetBundle:Comment')->findBY(array('articleID' => $id));
-	
+
 
 		if (null === $article) {
 			return $this->redirectToRoute('pw_evmeet_liste');
@@ -111,26 +111,36 @@ class CoreController extends Controller
 
 	public function profilAction()
 	{
-		$em = $this->getDoctrine()->getManager();
-		$articles = $em->getRepository('PWEvmeetBundle:Article')->findBY(array('user' => $this->getUser()));
+		if ($this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
 
-		return $this->render('PWEvmeetBundle:Core:profil.html.twig', array(
-			'articles' => $articles,
-			));
+			$em = $this->getDoctrine()->getManager();
+			$articles = $em->getRepository('PWEvmeetBundle:Article')->findBY(array('user' => $this->getUser()));
+
+			return $this->render('PWEvmeetBundle:Core:profil.html.twig', array(
+				'articles' => $articles,
+				));
+
+		}
+
+		return $this->redirectToRoute('pw_evmeet_homepage');
 	}
 
 	public function deleteArticleAction($id)
 	{
-		$em = $this->getDoctrine()->getManager();
-		$article = $em->getRepository('PWEvmeetBundle:Article')->find($id);
-		$em->remove($article);
-		$em->flush();
+		if ($this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
 
-		$articles = $em->getRepository('PWEvmeetBundle:Article')->findBY(array('user' => $this->getUser()));
+			$em = $this->getDoctrine()->getManager();
+			$article = $em->getRepository('PWEvmeetBundle:Article')->find($id);
 
-		return $this->render('PWEvmeetBundle:Core:profil.html.twig', array(
-			'articles' => $articles,
-			));
+			if ($this->getUser()->getId() == $article->getUser()->getId()){
+				$em->remove($article);
+				$em->flush();
+			}
+			
+			return $this->redirectToRoute('pw_evmeet_profil');
+		}
+
+		return $this->redirectToRoute('pw_evmeet_homepage');
 	}
 
 }

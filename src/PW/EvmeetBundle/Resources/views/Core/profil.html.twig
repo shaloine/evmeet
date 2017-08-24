@@ -33,7 +33,7 @@
 								</div>
 								<div class="modal-footer">
 									<button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
-									<!--<a href="{{ render(controller('PWEvmeetBundle:Core:deleteArticle', {'$id' : article.id})) }}" class="btn btn-danger">Confirmer</a>-->
+									<a href="{{ path('pw_evmeet_delete', { 'id': article.id }) }}" class="btn btn-danger">Confirmer</a>
 								</div>
 							</div><!-- /.modal-content -->
 						</div><!-- /.modal-dialog -->
