@@ -10,6 +10,7 @@ use PW\EvmeetBundle\Entity\Comment;
 use PW\EvmeetBundle\Entity\User;
 use PW\EvmeetBundle\Form\ArticleType;
 use PW\EvmeetBundle\Form\CommentType;
+use PW\EvmeetBundle\Form\UserType;
 
 class CoreController extends Controller
 {
@@ -109,15 +110,32 @@ class CoreController extends Controller
 			));
 	}
 
-	public function profilAction()
+	public function profilAction(Request $request)
 	{
 		if ($this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
 
+			$user = $this->getUser();
+			
+			if ($request->isMethod('POST')) {
+
+				$form->handleRequest($request);
+
+				if ($form->isValid()) {
+
+				}
+			}
+
 			$em = $this->getDoctrine()->getManager();
 			$articles = $em->getRepository('PWEvmeetBundle:Article')->findBY(array('user' => $this->getUser()));
+			
+			
+
+			$form   = $this->get('form.factory')->create(UserType::class, $user);
 
 			return $this->render('PWEvmeetBundle:Core:profil.html.twig', array(
 				'articles' => $articles,
+				'form' => $form->createView(),
+				'user' => $user
 				));
 
 		}
