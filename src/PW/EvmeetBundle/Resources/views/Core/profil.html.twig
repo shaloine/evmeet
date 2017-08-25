@@ -44,7 +44,11 @@
 	</div>
 
 	<h3>Mes informations</h3>
+	{% for message in app.session.flashbag.get('notice') %}
 
+        <p>{{ message }}</p>
+
+    {% endfor %}
 	{{ form_start(form) }}
 
 	<div class="form-group">

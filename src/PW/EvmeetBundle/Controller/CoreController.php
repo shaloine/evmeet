@@ -114,7 +114,16 @@ class CoreController extends Controller
 	{
 		if ($this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
 
-			$user = $this->getUser();
+			$em = $this->getDoctrine()->getManager();
+
+			$flush = false;
+
+			$AlphaUsername = $this->getUser()->getUsername();
+			$AlphaEmail = $this->getUser()->getEmail();
+
+			$user= $this->getUser();
+			
+			$form   = $this->get('form.factory')->create(UserType::class, $user);
 			
 			if ($request->isMethod('POST')) {
 
@@ -122,15 +131,44 @@ class CoreController extends Controller
 
 				if ($form->isValid()) {
 
+					$userExist = $em->getRepository('PWEvmeetBundle:User')->findOneByUsername($user->getUsername());
+					$emailExist = $em->getRepository('PWEvmeetBundle:User')->findOneByEmail($user->getEmail());
+
+					// a revoir sur le persist
+					if(is_null($userExist)){
+
+						$em->persist($user);
+						$flush = true;
+						$request->getSession()->getFlashBag()->add('notice', "Nom d'utilisateur modifié");
+
+					} else if ($userExist && $user->getUsername() != $AlphaUsername){
+						$request->getSession()->getFlashBag()->add('notice', 'Ce nom est déjà pris');
+					} 
+					if(is_null($emailExist)){
+
+						$em->persist($user);
+						$flush = true;
+						$request->getSession()->getFlashBag()->add('notice', "Email modifié");
+
+					} else if ($emailExist && $user->getEmail() != $AlphaEmail){
+						$request->getSession()->getFlashBag()->add('notice', 'Cet Email existe déjà');
+					} 
+
+					if ($flush){
+
+						
+						$em->flush();
+					}
+
+
 				}
 			}
 
-			$em = $this->getDoctrine()->getManager();
-			$articles = $em->getRepository('PWEvmeetBundle:Article')->findBY(array('user' => $this->getUser()));
-			
-			
 
-			$form   = $this->get('form.factory')->create(UserType::class, $user);
+
+			
+			$articles = $em->getRepository('PWEvmeetBundle:Article')->findBY(array('user' => $this->getUser()));
+
 
 			return $this->render('PWEvmeetBundle:Core:profil.html.twig', array(
 				'articles' => $articles,
