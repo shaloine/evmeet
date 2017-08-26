@@ -134,32 +134,29 @@ class CoreController extends Controller
 					$userExist = $em->getRepository('PWEvmeetBundle:User')->findOneByUsername($user->getUsername());
 					$emailExist = $em->getRepository('PWEvmeetBundle:User')->findOneByEmail($user->getEmail());
 
-					// a revoir sur le persist
 					if(is_null($userExist)){
-
-						$em->persist($user);
 						$flush = true;
 						$request->getSession()->getFlashBag()->add('notice', "Nom d'utilisateur modifié");
 
 					} else if ($userExist && $user->getUsername() != $AlphaUsername){
+
+						$user->setUsername($AlphaUsername);
 						$request->getSession()->getFlashBag()->add('notice', 'Ce nom est déjà pris');
+
 					} 
 					if(is_null($emailExist)){
-
-						$em->persist($user);
 						$flush = true;
 						$request->getSession()->getFlashBag()->add('notice', "Email modifié");
 
 					} else if ($emailExist && $user->getEmail() != $AlphaEmail){
+						$user->setEmail($AlphaEmail);
 						$request->getSession()->getFlashBag()->add('notice', 'Cet Email existe déjà');
 					} 
 
 					if ($flush){
-
-						
+						$em->persist($user);
 						$em->flush();
 					}
-
 
 				}
 			}
