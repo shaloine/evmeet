@@ -3,19 +3,16 @@
 {% block body %}
 	{% for message in app.session.flashbag.get('notice') %}
 
-        <p>{{ message }}</p>
+		<p>{{ message }}</p>
 
-    {% endfor %}
+	{% endfor %}
 
-  {{ form_start(form) }}
+	
+		
 
-    
 
-    {{ form_widget(form) }}
-
-    
-{{ form_end(form) }}
 {% endblock %}
+
 
 
 
