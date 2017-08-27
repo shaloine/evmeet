@@ -3,6 +3,9 @@
 namespace PW\EvmeetBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use \DateTime;
+use DateTimeZone;
+
 
 /**
  * Article
@@ -65,10 +68,9 @@ class Article
 
     public function __construct()
     {
-      $this->dateInvitation = new \Datetime();
+      $this->dateInvitation = new Datetime();
     }
 
-    
 
     /**
      * Get id

@@ -2,6 +2,9 @@
 
 namespace PW\EvmeetBundle\Repository;
 
+use \DateTime;
+use DateTimeZone;
+
 /**
  * ArticleRepository
  *
@@ -10,4 +13,26 @@ namespace PW\EvmeetBundle\Repository;
  */
 class ArticleRepository extends \Doctrine\ORM\EntityRepository
 {
+
+	public function classicFind()
+
+	{
+
+		$date_now = new DateTime('NOW' ,new DateTimeZone('Europe/Paris'));
+		$date_now->setTime(0, 0, 0);
+			
+		$qb =  $this->createQueryBuilder('a');
+
+		$qb
+		->where('a.dateInvitation >= :date')
+			->setParameter('date', $date_now)
+		->orderBy('a.dateInvitation', 'ASC')
+		;
+
+		return $qb
+		->getQuery()
+		->getResult()
+		;
+
+	}
 }

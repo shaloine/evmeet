@@ -15,6 +15,7 @@ use PW\EvmeetBundle\Form\UserType;
 use PW\EvmeetBundle\Form\FilterType;
 
 use \DateTime;
+use DateTimeZone;
 
 class CoreController extends Controller
 {
@@ -39,14 +40,9 @@ class CoreController extends Controller
 				var_dump($filter);
 			}
 		}
-		else{
+		else {
 
-			$date_now = new DateTime();
-
-			$articles = $em->getRepository('PWEvmeetBundle:Article')->findBy(
-			array(),
-			array('dateInvitation' => 'asc')
-			);
+			$articles = $em->getRepository('PWEvmeetBundle:Article')->classicFind();
 
 		}
 		
