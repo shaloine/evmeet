@@ -43,8 +43,6 @@ class Filter
     private $niveau;
 
 
-
-
     /**
      * Get id
      *
@@ -88,9 +86,8 @@ class Filter
      */
     public function setDateInvitation($dateInvitation)
     {
-        $this->dateInvitation = $dateInvitation;
+        $this->dateInvitation = new \Datetime();
 
-        return $this;
     }
 
     /**
