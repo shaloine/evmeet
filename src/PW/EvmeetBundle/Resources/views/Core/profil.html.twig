@@ -44,6 +44,7 @@
 	</div>
 
 	<h3>Mes informations</h3>
+
 	{% for message in app.session.flashbag.get('notice') %}
 
         <p>{{ message }}</p>
@@ -66,6 +67,15 @@
 	{{ form_widget(form) }}
 	{{ form_end(form) }}
 
+	{% if app.request.hasPreviousSession %}
+            {% for type, messages in app.session.flashBag.all %}
+                {% for message in messages %}
+                    <div class="{{ type }}">
+                        {{ message|trans({}, 'FOSUserBundle') }}
+                    </div>
+                {% endfor %}
+            {% endfor %}
+        {% endif %}
 	<a class="btn btn-default" href="{{ path('fos_user_change_password') }}" >Modifier mon mot de passe</a>
 {% endblock %}
 

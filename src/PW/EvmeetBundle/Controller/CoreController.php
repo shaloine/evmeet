@@ -21,7 +21,15 @@ class CoreController extends Controller
 
 	public function listeAction()
 	{
-		return $this->render('PWEvmeetBundle:Core:liste.html.twig');
+
+		$article = new Article();
+			$form   = $this->get('form.factory')->create(ArticleType::class, $article);
+
+			
+			return $this->render('PWEvmeetBundle:Core:liste.html.twig', array(
+				'form' => $form->createView(),
+				));
+		
 	}
 
 	public function creationAction(Request $request)
