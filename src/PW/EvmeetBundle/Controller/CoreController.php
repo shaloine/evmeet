@@ -14,6 +14,8 @@ use PW\EvmeetBundle\Form\CommentType;
 use PW\EvmeetBundle\Form\UserType;
 use PW\EvmeetBundle\Form\FilterType;
 
+use \DateTime;
+
 class CoreController extends Controller
 {
 	public function indexAction()
@@ -21,17 +23,39 @@ class CoreController extends Controller
 		return $this->render('PWEvmeetBundle:Core:index.html.twig');
 	}
 
-	public function listeAction()
+	public function listeAction(Request $request)
 	{
-
-		$filter = new Filter();
-			$form   = $this->get('form.factory')->create(FilterType::class, $filter);
-
-			
-			return $this->render('PWEvmeetBundle:Core:liste.html.twig', array(
-				'form' => $form->createView(),
-				));
 		
+		$filter = new Filter();
+		$form   = $this->get('form.factory')->create(FilterType::class, $filter);
+
+		$em = $this->getDoctrine()->getManager();
+
+		if ($request->isMethod('POST')) {
+
+			$form->handleRequest($request);
+
+			if ($form->isValid()) {
+				var_dump($filter);
+			}
+		}
+		else{
+
+			$date_now = new DateTime();
+
+			$articles = $em->getRepository('PWEvmeetBundle:Article')->findBy(
+			array(),
+			array('dateInvitation' => 'asc')
+			);
+
+		}
+		
+			
+		return $this->render('PWEvmeetBundle:Core:liste.html.twig', array(
+			'form' => $form->createView(),
+			'articles' => $articles,
+			));
+
 	}
 
 	public function creationAction(Request $request)
