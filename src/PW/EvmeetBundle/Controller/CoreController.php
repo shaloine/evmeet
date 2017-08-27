@@ -8,9 +8,11 @@ use Symfony\Component\HttpFoundation\Request;
 use PW\EvmeetBundle\Entity\Article;
 use PW\EvmeetBundle\Entity\Comment;
 use PW\EvmeetBundle\Entity\User;
+use PW\EvmeetBundle\Entity\Filter;
 use PW\EvmeetBundle\Form\ArticleType;
 use PW\EvmeetBundle\Form\CommentType;
 use PW\EvmeetBundle\Form\UserType;
+use PW\EvmeetBundle\Form\FilterType;
 
 class CoreController extends Controller
 {
@@ -22,8 +24,8 @@ class CoreController extends Controller
 	public function listeAction()
 	{
 
-		$article = new Article();
-			$form   = $this->get('form.factory')->create(ArticleType::class, $article);
+		$filter = new Filter();
+			$form   = $this->get('form.factory')->create(FilterType::class, $filter);
 
 			
 			return $this->render('PWEvmeetBundle:Core:liste.html.twig', array(
