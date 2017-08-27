@@ -5,6 +5,8 @@ namespace PW\EvmeetBundle\Repository;
 use \DateTime;
 use DateTimeZone;
 
+use PW\EvmeetBundle\Entity\Filter;
+
 /**
  * ArticleRepository
  *
@@ -15,17 +17,15 @@ class ArticleRepository extends \Doctrine\ORM\EntityRepository
 {
 
 	public function classicFind()
-
 	{
-
 		$date_now = new DateTime('NOW' ,new DateTimeZone('Europe/Paris'));
 		$date_now->setTime(0, 0, 0);
-			
+
 		$qb =  $this->createQueryBuilder('a');
 
 		$qb
 		->where('a.dateInvitation >= :date')
-			->setParameter('date', $date_now)
+		->setParameter('date', $date_now)
 		->orderBy('a.dateInvitation', 'ASC')
 		;
 
@@ -33,6 +33,53 @@ class ArticleRepository extends \Doctrine\ORM\EntityRepository
 		->getQuery()
 		->getResult()
 		;
+	}
 
+	public function complexFind(filter $filter)
+	{
+		$date_now = new DateTime('NOW' ,new DateTimeZone('Europe/Paris'));
+		$date_now->setTime(0, 0, 0);
+
+		$qb =  $this->createQueryBuilder('a');
+
+		if($filter->getLieu()){
+			$qb
+			->andWhere('a.lieu = :lieu')
+			->setParameter('lieu', $filter->getLieu())
+			;
+		}
+
+		if($filter->getDateInvitation()){
+			$qb
+			->andWhere('a.dateInvitation = :date')
+			->setParameter('date', $filter->getDateInvitation())
+			;
+		} else {
+			$qb
+			->andWhere('a.dateInvitation >= :date')
+			->setParameter('date', $date_now)
+			->orderBy('a.dateInvitation', 'ASC')
+			;
+		}
+
+		if($filter->getNiveau()){
+			$qb
+			->andWhere('a.niveauMin <= :niveau')
+			->setParameter('niveau', $filter->getNiveau())
+			->andWhere('a.niveauMax >= :niveau')
+			->setParameter('niveau', $filter->getNiveau())
+			;
+		}
+
+
+		$qb
+		->orderBy('a.id', 'ASC')
+		;
+		
+
+		return $qb
+		->getQuery()
+		->getResult()
+		;
 	}
 }

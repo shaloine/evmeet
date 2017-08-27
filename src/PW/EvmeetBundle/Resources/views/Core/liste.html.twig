@@ -32,6 +32,7 @@
 		</div>
 		
 		{{ form_widget(form.save, {'attr': {'class': 'btn  btn-default'}}) }}
+		<a href="{{ path('pw_evmeet_liste') }}" class="btn btn-default" title="supprimer"><span class="glyphicon glyphicon glyphicon-remove"></span></a>
 
 		{{ form_widget(form) }}
 		{{ form_end(form) }}

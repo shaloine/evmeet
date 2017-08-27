@@ -37,7 +37,9 @@ class CoreController extends Controller
 			$form->handleRequest($request);
 
 			if ($form->isValid()) {
-				var_dump($filter);
+
+				$articles = $em->getRepository('PWEvmeetBundle:Article')->complexFind($filter);
+
 			}
 		}
 		else {
@@ -46,7 +48,7 @@ class CoreController extends Controller
 
 		}
 		
-			
+		
 		return $this->render('PWEvmeetBundle:Core:liste.html.twig', array(
 			'form' => $form->createView(),
 			'articles' => $articles,
