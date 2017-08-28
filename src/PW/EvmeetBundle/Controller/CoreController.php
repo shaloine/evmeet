@@ -196,7 +196,7 @@ class CoreController extends Controller
 
 
 			
-			$articles = $em->getRepository('PWEvmeetBundle:Article')->findBY(array('user' => $this->getUser()));
+			$articles = $em->getRepository('PWEvmeetBundle:Article')->findBY(array('user' => $this->getUser()),array('dateInvitation' => 'asc'));
 
 
 			return $this->render('PWEvmeetBundle:Core:profil.html.twig', array(
