@@ -58,7 +58,7 @@ class ArticleRepository extends \Doctrine\ORM\EntityRepository
 			$qb
 			->andWhere('a.dateInvitation >= :date')
 			->setParameter('date', $date_now)
-			->orderBy('a.dateInvitation', 'ASC')
+			->orderBy('a.dateInvitation', 'DESC')
 			;
 		}
 
