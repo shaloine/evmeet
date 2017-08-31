@@ -23,3 +23,6 @@ fos_user_change_password:
 
 fos_user_profile_show:
     path: /profil
+
+fos_user_registration_confirmed:
+    path: /profil
