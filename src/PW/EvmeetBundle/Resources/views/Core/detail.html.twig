@@ -11,6 +11,36 @@
 		<p>{{ article.commentaire }}</p>
 	{% endif %}
 
+	{% if article.user !=  user %}
+		<p>Nombre de places restantes : {{ article.nbPlace }}</p>
+		{% if registredUsers is empty %}
+			{% if article.nbPlace > 0 %}
+				<a href="{{ path('pw_evmeet_inscription', { 'id': article.id }) }}" class="btn btn-default">S'inscrire</a>
+			{% endif %}	
+		{% else %}	
+			{% for userRegistred in registredUsers %}
+				{% if userRegistred == user %}
+					<a href="{{ path('pw_evmeet_desinscription', { 'id': article.id }) }}" class="btn btn-default">Se désinscrire</a>
+				{% else %}	
+					{% if article.nbPlace > 0 %}
+						<a href="{{ path('pw_evmeet_inscription', { 'id': article.id }) }}" class="btn btn-default">S'inscrire</a>
+					{% endif %}
+				{% endif %}	
+			{% endfor %}
+		{% endif %}	
+	{% endif %}
+
+	<p>Utilisateur(s) enregistré(s)</p>
+
+	{% if registredUsers is not empty %}
+
+		{% for userRegistred in registredUsers %}
+			{{ userRegistred.username }} 
+		{% endfor %}
+	{% else %}
+		<p>Aucun inscrit</p>
+	{% endif %}	
+
 	{% if is_granted('ROLE_USER') %}
 
 		<h4>Poser une question</h4>

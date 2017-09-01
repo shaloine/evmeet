@@ -53,6 +53,13 @@ class Article
     private $niveauMax;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="nbPlace", type="integer")
+     */
+    private $nbPlace;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="commentaire", type="text", nullable=true)
@@ -224,5 +231,29 @@ class Article
     public function getUser()
     {
         return $this->user;
+    }
+
+    /**
+     * Set nbPlace
+     *
+     * @param integer $nbPlace
+     *
+     * @return Article
+     */
+    public function setNbPlace($nbPlace)
+    {
+        $this->nbPlace = $nbPlace;
+
+        return $this;
+    }
+
+    /**
+     * Get nbPlace
+     *
+     * @return integer
+     */
+    public function getNbPlace()
+    {
+        return $this->nbPlace;
     }
 }

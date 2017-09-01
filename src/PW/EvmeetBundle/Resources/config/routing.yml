@@ -30,6 +30,16 @@ pw_evmeet_delete:
     defaults:
         _controller: PWEvmeetBundle:Core:deleteArticle
 
+pw_evmeet_inscription:
+    path:     /inscription/{id}
+    defaults:
+        _controller: PWEvmeetBundle:Core:inscriptionArticle
+
+pw_evmeet_desinscription:
+    path:     /desinscription/{id}
+    defaults:
+        _controller: PWEvmeetBundle:Core:desinscriptionArticle
+
 
 
 

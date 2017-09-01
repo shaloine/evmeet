@@ -3,6 +3,9 @@
 namespace PW\EvmeetBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use \DateTime;
+use DateTimeZone;
+
 
 /**
  * Article
@@ -50,6 +53,13 @@ class Article
     private $niveauMax;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="nbPlace", type="integer")
+     */
+    private $nbPlace;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="commentaire", type="text", nullable=true)
@@ -65,10 +75,9 @@ class Article
 
     public function __construct()
     {
-      $this->dateInvitation = new \Datetime();
+      $this->dateInvitation = new Datetime();
     }
 
-    
 
     /**
      * Get id

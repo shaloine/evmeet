@@ -127,4 +127,3 @@ class Filter
         return $this->niveau;
     }
 }
-

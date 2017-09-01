@@ -9,6 +9,7 @@ use PW\EvmeetBundle\Entity\Article;
 use PW\EvmeetBundle\Entity\Comment;
 use PW\EvmeetBundle\Entity\User;
 use PW\EvmeetBundle\Entity\Filter;
+use PW\EvmeetBundle\Entity\RegistredUser;
 use PW\EvmeetBundle\Form\ArticleType;
 use PW\EvmeetBundle\Form\CommentType;
 use PW\EvmeetBundle\Form\UserType;
@@ -127,9 +128,17 @@ class CoreController extends Controller
 
 		}
 
+		$user = $this->getUser();	
 		$article = $em->getRepository('PWEvmeetBundle:Article')->find($id);
 		$comments = $em->getRepository('PWEvmeetBundle:Comment')->findBY(array('articleID' => $id));
+		$IDregistredUsers = $em->getRepository('PWEvmeetBundle:RegistredUser')->findBY(array('articleId' => $id));
 
+		$registredUsers = array();
+
+		foreach ($IDregistredUsers as $registredUser) {
+			$registredUser = $em->getRepository('PWEvmeetBundle:User')->findOneBy(array('id' => $registredUser->getUserId()));
+			array_push($registredUsers, $registredUser);
+		}
 
 		if (null === $article) {
 			return $this->redirectToRoute('pw_evmeet_liste');
@@ -138,7 +147,9 @@ class CoreController extends Controller
 		return $this->render('PWEvmeetBundle:Core:detail.html.twig', array(
 			'article' => $article,
 			'form' => $form->createView(),
-			'comments' => $comments
+			'comments' => $comments,
+			'user' => $user,
+			'registredUsers' => $registredUsers
 			));
 	}
 
@@ -192,17 +203,30 @@ class CoreController extends Controller
 
 				}
 			}
-
-
-
 			
 			$articles = $em->getRepository('PWEvmeetBundle:Article')->findBY(array('user' => $this->getUser()),array('dateInvitation' => 'asc'));
 
+			$IDregistredArticles = $em->getRepository('PWEvmeetBundle:RegistredUser')->findBY(array('userId' => $this->getUser()->getId()));
+			$registredArticles = array();
+			foreach ($IDregistredArticles as $registredArticle) {
+				$registredArticle = $em->getRepository('PWEvmeetBundle:Article')->findOneBy(array('id' => $registredArticle->getArticleId()));
+				array_push($registredArticles, $registredArticle);
+			}
+
+			usort($registredArticles, function($a, $b) {
+				$ad = new DateTime($a->getDateInvitation()->format('Y-m-d H:i:s'));
+				$bd = new DateTime($b->getDateInvitation()->format('Y-m-d H:i:s'));
+				if ($ad == $bd) {
+					return 0;
+				}
+				return $ad < $bd ? -1 : 1;
+			});
 
 			return $this->render('PWEvmeetBundle:Core:profil.html.twig', array(
 				'articles' => $articles,
 				'form' => $form->createView(),
-				'user' => $user
+				'user' => $user,
+				'registredArticles' => $registredArticles
 				));
 
 		}
@@ -217,16 +241,70 @@ class CoreController extends Controller
 			$em = $this->getDoctrine()->getManager();
 			$article = $em->getRepository('PWEvmeetBundle:Article')->find($id);
 			$listComments = $em->getRepository('PWEvmeetBundle:Comment')->findBy(array('articleID' => $id));
+			$listRegistredUser = $em->getRepository('PWEvmeetBundle:RegistredUser')->findBy(array('articleId' => $id));
 
 			if ($this->getUser()->getId() == $article->getUser()->getId()){
 				$em->remove($article);
 				foreach ($listComments as $comment) {
 					$em->remove($comment);
 				}
+				foreach ($listRegistredUser as $registredUser) {
+					$em->remove($registredUser);
+				}
 				$em->flush();
 			}
 			
 			return $this->redirectToRoute('pw_evmeet_profil');
+		}
+
+		return $this->redirectToRoute('pw_evmeet_homepage');
+	}
+
+	public function inscriptionArticleAction($id)
+	{
+		if ($this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+
+			$em = $this->getDoctrine()->getManager();
+			$article = $em->getRepository('PWEvmeetBundle:Article')->find($id);
+			
+			if ($article->getNbPlace() > 0){
+
+				$article->setNbPlace($article->getNbPlace() - 1);
+				$RegistredUser = new RegistredUser;
+				$RegistredUser->setUserId($this->getUser()->getId());
+				$RegistredUser->setArticleId($id);
+
+				$em->persist($RegistredUser);	
+				$em->flush();
+
+				return $this->redirectToRoute('pw_evmeet_detail',  array('id' => $id));
+
+			} else {
+				
+				return $this->redirectToRoute('pw_evmeet_liste');
+			}
+			
+		}
+
+		return $this->redirectToRoute('pw_evmeet_homepage');
+	}
+	public function desinscriptionArticleAction($id)
+	{
+		if ($this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+
+			$em = $this->getDoctrine()->getManager();
+			$article = $em->getRepository('PWEvmeetBundle:Article')->find($id);
+
+			$article->setNbPlace($article->getNbPlace() + 1);
+
+			$userId = $this->getUser()->getId();
+			$registredUser = $em->getRepository('PWEvmeetBundle:RegistredUser')->select($id, $userId);
+
+			$em->remove($registredUser);
+			$em->flush();
+
+			return $this->redirectToRoute('pw_evmeet_detail',  array('id' => $id));
+
 		}
 
 		return $this->redirectToRoute('pw_evmeet_homepage');
