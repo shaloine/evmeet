@@ -42,6 +42,7 @@
 			<thead>
 				<tr>
 					<th>Date</th>
+					<th>Heure</th>
 					<th>Lieu</th>
 					<th>Niveau</th>
 					<th>Accès</th>
@@ -51,6 +52,7 @@
 				{% for article in articles %}
 					<tr>
 						<td>{{ article.dateInvitation|date('d/m/Y') }}</td>
+						<td>{{ article.timeStart|date('H:i') }}</td>
 						<td>{{ article.lieu }}</td>
 						<td>{{ levelTranslate.translate(article.niveauMin) }} - {{ levelTranslate.translate(article.niveauMax) }}</td>
 						<td>

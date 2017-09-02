@@ -72,10 +72,20 @@ class Article
      */
     private $user;
 
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="timeStart", type="datetime")
+     */
+    private $timeStart;
+
 
     public function __construct()
     {
       $this->dateInvitation = new Datetime();
+      $this->dateInvitation->setTimezone(new DateTimeZone('Europe/Paris'));
+      $this->timeStart = new Datetime();
+      $this->timeStart->setTimezone(new DateTimeZone('Europe/Paris'));
     }
 
 
@@ -255,5 +265,29 @@ class Article
     public function getNbPlace()
     {
         return $this->nbPlace;
+    }
+
+    /**
+     * Set timeStart
+     *
+     * @param \DateTime $timeStart
+     *
+     * @return Article
+     */
+    public function setTimeStart($timeStart)
+    {
+        $this->timeStart = $timeStart;
+
+        return $this;
+    }
+
+    /**
+     * Get timeStart
+     *
+     * @return \DateTime
+     */
+    public function getTimeStart()
+    {
+        return $this->timeStart;
     }
 }

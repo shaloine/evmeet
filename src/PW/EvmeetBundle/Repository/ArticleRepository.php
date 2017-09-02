@@ -53,12 +53,13 @@ class ArticleRepository extends \Doctrine\ORM\EntityRepository
 			$qb
 			->andWhere('a.dateInvitation = :date')
 			->setParameter('date', $filter->getDateInvitation())
+			->orderBy('a.id', 'ASC')
 			;
 		} else {
 			$qb
 			->andWhere('a.dateInvitation >= :date')
 			->setParameter('date', $date_now)
-			->orderBy('a.dateInvitation', 'DESC')
+			->orderBy('a.dateInvitation', 'ASC')
 			;
 		}
 
@@ -70,11 +71,6 @@ class ArticleRepository extends \Doctrine\ORM\EntityRepository
 			->setParameter('niveau', $filter->getNiveau())
 			;
 		}
-
-
-		$qb
-		->orderBy('a.id', 'ASC')
-		;
 		
 
 		return $qb
