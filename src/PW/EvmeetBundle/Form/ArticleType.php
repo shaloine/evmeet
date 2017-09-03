@@ -5,11 +5,11 @@ namespace PW\EvmeetBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Component\Form\Extension\Core\Type\TimeType;
+
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use SC\DatetimepickerBundle\Form\Type\DatetimeType;
 
 class ArticleType extends AbstractType
 {
@@ -20,8 +20,6 @@ class ArticleType extends AbstractType
     {
         $builder
             ->add('lieu', ChoiceType::class, array('choices' => array('EV2' => 'EV2', 'EV3' => 'EV3', 'Labo' => 'Labo')))
-            ->add('dateInvitation', DateType::class, array('widget' => 'single_text','html5' => false, 'format' => 'dd/MM/yyyy'))
-            ->add('timeStart', TimeType::class, array('input'  => 'datetime','widget' => 'choice','label' => 'Heure'))
             ->add('niveauMin', ChoiceType::class, array('choices' => array('4A' => 1, '4B' => 2, '4C' => 3,'5A' => 4, '5B' => 5, '5C' => 6,'6A' => 7, '6B' => 8, '6C' => 9,'7A' => 10, '7B' => 11, '7C' => 12, '8A' => 13)))
             ->add('niveauMax', ChoiceType::class, array('choices' => array('4A' => 1, '4B' => 2, '4C' => 3,'5A' => 4, '5B' => 5, '5C' => 6,'6A' => 7, '6B' => 8, '6C' => 9,'7A' => 10, '7B' => 11, '7C' => 12, '8A' => 13)))
             ->add('nbPlace', ChoiceType::class, array('choices' => array('1' => 1, '2' => 2, '3' => 3,'4' => 4, '5' => 5),'label' => 'Nombre de place'))
@@ -46,6 +44,4 @@ class ArticleType extends AbstractType
     {
         return 'pw_evmeetbundle_article';
     }
-
-
 }

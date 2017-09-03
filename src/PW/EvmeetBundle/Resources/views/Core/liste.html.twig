@@ -52,7 +52,7 @@
 				{% for article in articles %}
 					<tr>
 						<td>{{ article.dateInvitation|date('d/m/Y') }}</td>
-						<td>{{ article.timeStart|date('H:i') }}</td>
+						<td>{{ article.dateInvitation|date('H:i') }}</td>
 						<td>{{ article.lieu }}</td>
 						<td>{{ levelTranslate.translate(article.niveauMin) }} - {{ levelTranslate.translate(article.niveauMax) }}</td>
 						<td>
@@ -90,6 +90,7 @@
         format: 'dd/mm/yyyy',
         startDate: 'd',
         language: 'fr',
+        autoclose: true,
       });
     });
   </script>

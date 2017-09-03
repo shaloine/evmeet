@@ -17,6 +17,7 @@ class AppKernel extends Kernel
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new PW\EvmeetBundle\PWEvmeetBundle(),
             new FOS\UserBundle\FOSUserBundle(),
+            new SC\DatetimepickerBundle\SCDatetimepickerBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

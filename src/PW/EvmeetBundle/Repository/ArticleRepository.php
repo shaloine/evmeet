@@ -39,6 +39,9 @@ class ArticleRepository extends \Doctrine\ORM\EntityRepository
 	{
 		$date_now = new DateTime('NOW' ,new DateTimeZone('Europe/Paris'));
 		$date_now->setTime(0, 0, 0);
+		
+		$mindate = $filter->getDateInvitation()->format('Y-m-d 00:00:00');
+		$maxdate = $filter->getDateInvitation()->format('Y-m-d 23:59:59');
 
 		$qb =  $this->createQueryBuilder('a');
 
@@ -51,9 +54,10 @@ class ArticleRepository extends \Doctrine\ORM\EntityRepository
 
 		if($filter->getDateInvitation()){
 			$qb
-			->andWhere('a.dateInvitation = :date')
-			->setParameter('date', $filter->getDateInvitation())
-			->orderBy('a.id', 'ASC')
+			->andWhere('a.dateInvitation BETWEEN :datemin AND :datemax')
+			->setParameter('datemin', $mindate)
+			->setParameter('datemax', $maxdate)
+			->orderBy('a.dateInvitation', 'ASC')
 			;
 		} else {
 			$qb

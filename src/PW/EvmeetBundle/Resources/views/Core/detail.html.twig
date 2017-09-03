@@ -2,7 +2,7 @@
 
 {% block body %}
 
-	<h3>{{ article.lieu }} - {{ article.dateInvitation|date('d/m/Y') }} - {{ article.timeStart|date('H:i') }}</h3>
+	<h3>{{ article.lieu }} - {{ article.dateInvitation|date('d/m/Y') }} - {{ article.dateInvitation|date('H:i') }}</h3>
 	<p>Posté par {{ article.user.username }}</p>
 	<p>Niveau : {{ levelTranslate.translate(article.niveauMin) }} / {{ levelTranslate.translate(article.niveauMax) }}</p>
 	

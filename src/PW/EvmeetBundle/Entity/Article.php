@@ -72,20 +72,11 @@ class Article
      */
     private $user;
 
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="timeStart", type="datetime")
-     */
-    private $timeStart;
-
 
     public function __construct()
     {
       $this->dateInvitation = new Datetime();
       $this->dateInvitation->setTimezone(new DateTimeZone('Europe/Paris'));
-      $this->timeStart = new Datetime();
-      $this->timeStart->setTimezone(new DateTimeZone('Europe/Paris'));
     }
 
 
