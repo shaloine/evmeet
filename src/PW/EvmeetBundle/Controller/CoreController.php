@@ -49,7 +49,6 @@ class CoreController extends Controller
 
 		}
 		
-		
 		return $this->render('PWEvmeetBundle:Core:liste.html.twig', array(
 			'form' => $form->createView(),
 			'articles' => $articles,

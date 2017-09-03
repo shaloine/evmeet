@@ -22,7 +22,7 @@
 		<div class="form-group">
 			{{ form_label(form.dateInvitation) }}
 			{{ form_errors(form.dateInvitation) }}
-			{{ form_widget(form.dateInvitation, {'attr': {'class': 'form-control js-datepicker'}}) }}
+			{{ form_widget(form.dateInvitation, {'attr': {'class': 'form-control js-datepicker', 'Placeholder' : 'Choisir la date'}}) }}
 		</div>
 
 		<div class="form-group">
@@ -91,6 +91,7 @@
         startDate: 'd',
         language: 'fr',
         autoclose: true,
+        todayHighlight: true,
       });
     });
   </script>
