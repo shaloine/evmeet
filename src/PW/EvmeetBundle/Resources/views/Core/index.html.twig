@@ -1,5 +1,10 @@
 {% extends "PWEvmeetBundle::layout.html.twig" %}
 
+{% block stylesheets %}
+	{{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/index.css') }}" />
+{% endblock %}
+
 {% block body %}
 	<div>
 		<a class="btn btn-default" href="{{ path('pw_evmeet_liste')}}" role="button">Trouver un partenaire de grimpe</a>

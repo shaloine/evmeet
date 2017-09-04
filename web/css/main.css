@@ -1,0 +1,18 @@
+body{
+	margin:0;
+	padding:0;
+	background-color: #F4F4F4;
+}
+
+.navbar-default{
+	background-color: #ffffff;
+}
+.navbar-right{
+	color: #7F7F7F;
+	font-weight: bold;
+}
+.navbar-brand{
+	font-family: 'century gothic';
+	font-size: 24px;
+	color: black !important;
+}

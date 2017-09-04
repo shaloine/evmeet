@@ -1,9 +1,13 @@
 {% extends "PWEvmeetBundle::layout.html.twig" %}
 
 {% block stylesheets %}
-  {{ parent() }}
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker3.css"></script>
-  {% endblock %}
+	{{ parent() }}
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker3.css"></script>
+{% endblock %}
+
+{% block title %}
+	{{ parent() }}  Annonces
+{% endblock %}
 
 {% block body %}
 	{% for message in app.session.flashbag.get('notice') %}
@@ -13,31 +17,31 @@
 	{% endfor %}
 
 
-		{{ form_start(form, {'attr': {'class': 'form-inline'}}) }}
-		<div class="form-group">
-			{{ form_label(form.lieu) }}
-			{{ form_errors(form.lieu) }}
-			{{ form_widget(form.lieu, {'attr': {'class': 'form-control'}}) }}
-		</div>
-		<div class="form-group">
-			{{ form_label(form.dateInvitation) }}
-			{{ form_errors(form.dateInvitation) }}
-			{{ form_widget(form.dateInvitation, {'attr': {'class': 'form-control js-datepicker', 'Placeholder' : 'Choisir la date'}}) }}
-		</div>
+	{{ form_start(form, {'attr': {'class': 'form-inline'}}) }}
+	<div class="form-group">
+		{{ form_label(form.lieu) }}
+		{{ form_errors(form.lieu) }}
+		{{ form_widget(form.lieu, {'attr': {'class': 'form-control'}}) }}
+	</div>
+	<div class="form-group">
+		{{ form_label(form.dateInvitation) }}
+		{{ form_errors(form.dateInvitation) }}
+		{{ form_widget(form.dateInvitation, {'attr': {'class': 'form-control js-datepicker', 'Placeholder' : 'Choisir la date'}}) }}
+	</div>
 
-		<div class="form-group">
-			{{ form_label(form.niveau) }}
-			{{ form_errors(form.niveau) }}
-			{{ form_widget(form.niveau, {'attr': {'class': 'form-control'}}) }}
-		</div>
-		
-		{{ form_widget(form.save, {'attr': {'class': 'btn  btn-default'}}) }}
-		<a href="{{ path('pw_evmeet_liste') }}" class="btn btn-default" title="supprimer"><span class="glyphicon glyphicon glyphicon-remove"></span></a>
+	<div class="form-group">
+		{{ form_label(form.niveau) }}
+		{{ form_errors(form.niveau) }}
+		{{ form_widget(form.niveau, {'attr': {'class': 'form-control'}}) }}
+	</div>
 
-		{{ form_widget(form) }}
-		{{ form_end(form) }}
+	{{ form_widget(form.save, {'attr': {'class': 'btn  btn-default'}}) }}
+	<a href="{{ path('pw_evmeet_liste') }}" class="btn btn-default" title="supprimer"><span class="glyphicon glyphicon glyphicon-remove"></span></a>
 
-		<div>
+	{{ form_widget(form) }}
+	{{ form_end(form) }}
+
+	<div>
 		<table class="table table-responsive">
 			<thead>
 				<tr>
@@ -69,33 +73,33 @@
 {% endblock %}
 
 {% block javascripts %}
-    {{ parent() }}
-  <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/js/bootstrap-datepicker.min.js"></script>
-  <script>
-  $.fn.datepicker.dates['fr'] = {
-      days: ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"],
-      daysShort: ["Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"],
-      daysMin: ["Di", "Lu", "Ma", "Me", "Je", "Ve", "Sa"],
-      months: ["Janvier", "Fevrier", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Decembre"],
-      monthsShort: ["Jan", "Fev", "Mar", "Avr", "Mai", "Juin", "Juil", "Aoû", "Sep", "Oct", "Nov", "Dec"],
-      today: "Aujourd'hui",
-      clear: "Effacer",
-      format: "dd/mm/yyyy",
-      titleFormat: "MM yyyy", /* Leverages same syntax as 'format' */
-      weekStart: 1
-    };
+	{{ parent() }}
+	<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/js/bootstrap-datepicker.min.js"></script>
+	<script>
+		$.fn.datepicker.dates['fr'] = {
+			days: ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"],
+			daysShort: ["Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"],
+			daysMin: ["Di", "Lu", "Ma", "Me", "Je", "Ve", "Sa"],
+			months: ["Janvier", "Fevrier", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Decembre"],
+			monthsShort: ["Jan", "Fev", "Mar", "Avr", "Mai", "Juin", "Juil", "Aoû", "Sep", "Oct", "Nov", "Dec"],
+			today: "Aujourd'hui",
+			clear: "Effacer",
+			format: "dd/mm/yyyy",
+			titleFormat: "MM yyyy", /* Leverages same syntax as 'format' */
+			weekStart: 1
+		};
 
-    jQuery(document).ready(function() {
-      $('.js-datepicker').datepicker({
-        format: 'dd/mm/yyyy',
-        startDate: 'd',
-        language: 'fr',
-        autoclose: true,
-        todayHighlight: true,
-      });
-    });
-  </script>
- {% endblock %}
+		jQuery(document).ready(function() {
+			$('.js-datepicker').datepicker({
+				format: 'dd/mm/yyyy',
+				startDate: 'd',
+				language: 'fr',
+				autoclose: true,
+				todayHighlight: true,
+			});
+		});
+	</script>
+{% endblock %}
 
 
 
