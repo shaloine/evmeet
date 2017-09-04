@@ -4,6 +4,7 @@ body{
 	background-color: #F4F4F4;
 }
 
+/* navbar */
 .navbar-default{
 	background-color: #ffffff;
 }
@@ -15,4 +16,36 @@ body{
 	font-family: 'century gothic';
 	font-size: 24px;
 	color: black !important;
+}
+
+/* common */
+.txtcenter{
+	text-align: center;
+}
+
+/* index */
+.indexContainer{
+	margin-top: 100px;
+}
+.indexContainer span{
+	color: #F8771C;
+}
+.indexContainer .btn-left{
+	margin-right: 30px;
+}
+.indexContainer .btn-right{
+	margin-left: 30px;
+}
+.indexContainer .btn-full{
+	width: 492px;
+}
+.indexContainer h2{
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+.indexContainer .btn-default{
+	box-shadow: 0px 0px 14px #5F5F5F;
+}
+.indexContainer div{
+	margin-bottom: 80px;
 }
