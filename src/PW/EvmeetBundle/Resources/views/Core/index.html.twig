@@ -7,15 +7,17 @@
 
 {% block body %}
 	<div class="txtcenter indexContainer">
-		<div>
-			<a class="btn btn-default" href="{{ path('pw_evmeet_liste')}}" role="button"><h2><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Trouver un partenaire de grimpe</h2></a>
+		<div class="row">
+			<a class="btn btn-default col-sm-10 col-sm-offset-1 hidden-xs" href="{{ path('pw_evmeet_liste')}}" role="button"><h2><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Trouver un partenaire de grimpe</h2></a>
+			<a class="btn btn-default col-xs-10 col-xs-offset-1 hidden-sm hidden-md hidden-lg" href="{{ path('pw_evmeet_liste')}}" role="button"><h2><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Trouver</h2></a>
 		</div>
-		<div>
+		<div class="row">
 			{% if is_granted('ROLE_USER') %}
-				<a class="btn btn-default btn-full" href="{{ path('pw_evmeet_creation')}}" role="button"><h2><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Créez votre annonce</h2></a>
+				<a class="btn btn-default btn-full col-sm-10 col-sm-offset-1 hidden-xs" href="{{ path('pw_evmeet_creation')}}" role="button"><h2><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Créez votre annonce</h2></a>
+				<a class="btn btn-default btn-full col-xs-10 col-xs-offset-1 hidden-sm hidden-md hidden-lg" href="{{ path('pw_evmeet_creation')}}" role="button"><h2><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Créer</h2></a>
 			{% else %}    
-				<a class="btn btn-default btn-left" href="{{ path('fos_user_security_login') }}" role="button"><h2><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Se connecter</h2></a>
-				<a class="btn btn-default btn-right" href="{{ path('fos_user_registration_register')}}" role="button"><h2><span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> S'inscrire</h2></a>
+				<a class="btn btn-default btn-left col-xs-10 col-xs-offset-1 col-sm-4 col-sm-offset-1" href="{{ path('fos_user_security_login') }}" role="button"><h2><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Se connecter</h2></a>
+				<a class="btn btn-default btn-right col-xs-10 col-xs-offset-1 col-sm-4 col-sm-offset-2 " href="{{ path('fos_user_registration_register')}}" role="button"><h2><span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> S'inscrire</h2></a>
 			{% endif %}
 		</div>
 	</div>

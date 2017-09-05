@@ -2,6 +2,9 @@ body{
 	margin:0;
 	padding:0;
 	background-color: #F4F4F4;
+	background:url('../images/background.jpg') no-repeat center fixed;
+	-webkit-background-size:cover;
+	background-size:cover;
 }
 
 /* navbar */
@@ -30,22 +33,61 @@ body{
 .indexContainer span{
 	color: #F8771C;
 }
-.indexContainer .btn-left{
-	margin-right: 30px;
-}
-.indexContainer .btn-right{
-	margin-left: 30px;
-}
-.indexContainer .btn-full{
-	width: 492px;
-}
 .indexContainer h2{
 	margin-top: 5px;
 	margin-bottom: 5px;
 }
 .indexContainer .btn-default{
-	box-shadow: 0px 0px 14px #5F5F5F;
+	box-shadow: 0px 0px 15px #292929;
 }
 .indexContainer div{
 	margin-bottom: 80px;
+}
+@media screen and (max-width: 767px) {
+  	.indexContainer div{
+		margin-bottom: 30px;
+	}
+	.indexContainer .btn-left{
+		margin-bottom: 30px;
+	}
+}
+.formulaire{
+	background-color: white;
+	padding: 20px;
+	box-shadow: 0px 0px 15px #292929;
+	border-radius: 7px;
+}
+.formulaire .btn-default{
+	background-color: #F8771c;
+	color: white;
+	border: 0;
+	padding: 10px 15px;
+}
+.formulaire .btn-default:hover{
+	background-color: #454545;
+	color: white;
+	border: 0;
+	padding: 10px 15px;
+}
+.formulaire .btnValidation{
+	text-align: center;
+}
+.formulaire li{
+	color: #a94442;
+	background-color: #f2dede;
+	border: 1px solid #ebccd1;
+	list-style: none;
+	margin-left: -40px;
+	padding: 5px;
+	padding-left: 10px;
+	border-radius: 4px;
+}
+.error{
+	color: #a94442;
+	background-color: #f2dede;
+	border: 1px solid #ebccd1;
+	padding: 5px;
+	padding-left: 10px;
+	border-radius: 4px;
+	margin-bottom: 10px;
 }
