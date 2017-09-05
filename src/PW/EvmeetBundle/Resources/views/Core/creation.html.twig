@@ -6,10 +6,10 @@
 {% endblock %}
 
 {% block body %}
+  <div class="formulaire">
+   {% for message in app.session.flashbag.get('notice') %}
 
-	{% for message in app.session.flashbag.get('notice') %}
-
-    <p>{{ message }}</p>
+    <p class="validation">{{ message }}</p>
 
   {% endfor %}
 
@@ -57,12 +57,12 @@
 
 
   {{ form_end(form) }}
-
+</div>
 {% endblock %}
 
 {% block javascripts %}
   {{ parent() }}
   {{ form_javascript(form) }}
 
-             
+
 {% endblock %}

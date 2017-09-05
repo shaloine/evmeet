@@ -44,7 +44,7 @@ body{
 	margin-bottom: 80px;
 }
 @media screen and (max-width: 767px) {
-  	.indexContainer div{
+	.indexContainer div{
 		margin-bottom: 30px;
 	}
 	.indexContainer .btn-left{
@@ -88,6 +88,14 @@ body{
 	border: 1px solid #ebccd1;
 	padding: 5px;
 	padding-left: 10px;
+	border-radius: 4px;
+	margin-bottom: 10px;
+}
+.validation{
+	color: #3c763d;
+	background-color: #dff0d8;
+	border: 1px solid #d6e9c6;
+	padding: 5px;
 	border-radius: 4px;
 	margin-bottom: 10px;
 }
