@@ -51,7 +51,7 @@ body{
 		margin-bottom: 30px;
 	}
 }
-.formulaire{
+.formulaire, .filter, .listContent{
 	background-color: white;
 	padding: 20px;
 	box-shadow: 0px 0px 15px #292929;
@@ -98,4 +98,19 @@ body{
 	padding: 5px;
 	border-radius: 4px;
 	margin-bottom: 10px;
+}
+.filter{
+	margin-bottom: 20px;
+	text-align: center;
+}
+.filter select, .filter input, .filter button, .filter a{
+	margin-left: 5px;
+	margin-right: 5px;
+}
+.listContent .btn{
+	background-color: #F8771C;
+	border-color: #E2680D;
+}
+.listContent td,.listContent th{
+	text-align: center;
 }

@@ -17,7 +17,7 @@
 	{% endfor %}
 
 
-	{{ form_start(form, {'attr': {'class': 'form-inline'}}) }}
+	{{ form_start(form, {'attr': {'class': 'form-inline filter'}}) }}
 	<div class="form-group">
 		{{ form_label(form.lieu) }}
 		{{ form_errors(form.lieu) }}
@@ -41,12 +41,10 @@
 	{{ form_widget(form) }}
 	{{ form_end(form) }}
 
-	<div>
+	<div class="listContent">
 		<table class="table table-responsive">
 			<thead>
 				<tr>
-					<th>Date</th>
-					<th>Heure</th>
 					<th>Lieu</th>
 					<th>Niveau</th>
 					<th>Accès</th>
