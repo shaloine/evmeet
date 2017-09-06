@@ -46,58 +46,67 @@
 			<thead>
 				<tr>
 					<th>Lieu</th>
+					<th>Heure</th>
 					<th>Niveau</th>
 					<th>Accès</th>
 				</tr>
 			</thead>
 			<tbody>
-				{% for article in articles %}
-					<tr>
-						<td>{{ article.dateInvitation|date('d/m/Y') }}</td>
-						<td>{{ article.dateInvitation|date('H:i') }}</td>
-						<td>{{ article.lieu }}</td>
-						<td>{{ levelTranslate.translate(article.niveauMin) }} - {{ levelTranslate.translate(article.niveauMax) }}</td>
-						<td>
-							<a href="{{ path('pw_evmeet_detail', { 'id': article.id }) }}" class="btn btn-primary btn-xs" title="Voir"><span class="glyphicon glyphicon-search"></span></a>
-						</td>
-					</tr>
-					
-				{% endfor %}
-			</tbody>
-		</table>
-	</div>
-	
+				{% set date = "" %}
+					{% for article in articles %}
 
-{% endblock %}
+						{% if date != article.dateInvitation|date('d/m/Y') %}
+							<tr>
+								<th colspan="4">{{ article.dateInvitation|localizeddate('none', 'none', null, null, 'EEEE d MMMM Y') }}</th>
+							</tr>
+							{% set date = article.dateInvitation|date('d/m/Y') %}
+						{% endif %}
 
-{% block javascripts %}
-	{{ parent() }}
-	<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/js/bootstrap-datepicker.min.js"></script>
-	<script>
-		$.fn.datepicker.dates['fr'] = {
-			days: ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"],
-			daysShort: ["Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"],
-			daysMin: ["Di", "Lu", "Ma", "Me", "Je", "Ve", "Sa"],
-			months: ["Janvier", "Fevrier", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Decembre"],
-			monthsShort: ["Jan", "Fev", "Mar", "Avr", "Mai", "Juin", "Juil", "Aoû", "Sep", "Oct", "Nov", "Dec"],
-			today: "Aujourd'hui",
-			clear: "Effacer",
-			format: "dd/mm/yyyy",
-			titleFormat: "MM yyyy", /* Leverages same syntax as 'format' */
-			weekStart: 1
-		};
+						<tr>
+							<td>{{ article.lieu }}</td>
+							<td>{{ article.dateInvitation|date('H:i') }}</td>
+							<td>{{ levelTranslate.translate(article.niveauMin) }} - {{ levelTranslate.translate(article.niveauMax) }}</td>
+							<td>
+								<a href="{{ path('pw_evmeet_detail', { 'id': article.id }) }}" class="btn btn-primary btn-xs" title="Voir"><span class="glyphicon glyphicon-search"></span></a>
+							</td>
+						</tr>
 
-		jQuery(document).ready(function() {
-			$('.js-datepicker').datepicker({
-				format: 'dd/mm/yyyy',
-				startDate: 'd',
-				language: 'fr',
-				autoclose: true,
-				todayHighlight: true,
-			});
-		});
-	</script>
-{% endblock %}
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+
+
+	{% endblock %}
+
+		{% block javascripts %}
+			{{ parent() }}
+			<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/js/bootstrap-datepicker.min.js"></script>
+			<script>
+				$.fn.datepicker.dates['fr'] = {
+					days: ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"],
+					daysShort: ["Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"],
+					daysMin: ["Di", "Lu", "Ma", "Me", "Je", "Ve", "Sa"],
+					months: ["Janvier", "Fevrier", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Decembre"],
+					monthsShort: ["Jan", "Fev", "Mar", "Avr", "Mai", "Juin", "Juil", "Aoû", "Sep", "Oct", "Nov", "Dec"],
+					today: "Aujourd'hui",
+					clear: "Effacer",
+					format: "dd/mm/yyyy",
+					titleFormat: "MM yyyy", /* Leverages same syntax as 'format' */
+					weekStart: 1
+				};
+
+				jQuery(document).ready(function() {
+					$('.js-datepicker').datepicker({
+						format: 'dd/mm/yyyy',
+						startDate: 'd',
+						language: 'fr',
+						autoclose: true,
+						todayHighlight: true,
+					});
+				});
+			</script>
+		{% endblock %}
 
 
 
