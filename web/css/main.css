@@ -5,6 +5,7 @@ body{
 	background:url('../images/background.jpg') no-repeat center fixed;
 	-webkit-background-size:cover;
 	background-size:cover;
+	padding-top: 70px;
 }
 
 /* navbar */
@@ -51,7 +52,7 @@ body{
 		margin-bottom: 30px;
 	}
 }
-.formulaire, .filter, .listContent{
+.formulaire, .filter, .listContent, .profilContent{
 	background-color: white;
 	padding: 20px;
 	box-shadow: 0px 0px 15px #292929;
@@ -113,4 +114,13 @@ body{
 }
 .listContent td,.listContent th{
 	text-align: center;
+}
+
+.profilContent h3{
+	margin-top: 0px;
+}
+.profilInformation{
+	border-bottom: 1px solid #F8771c;
+	padding-bottom: 20px;
+	margin-bottom: 20px;
 }

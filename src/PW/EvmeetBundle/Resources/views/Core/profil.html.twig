@@ -1,6 +1,45 @@
 {% extends "PWEvmeetBundle::layout.html.twig" %}
 
 {% block body %}
+	<div class="profilContent">
+		<div class="profilInformation">
+		<h3>Mes informations</h3>
+
+		{% for message in app.session.flashbag.get('notice') %}
+
+			<p>{{ message }}</p>
+
+		{% endfor %}
+		{{ form_start(form) }}
+		<div class="row">
+		<div class="form-group col-sm-4">
+			{{ form_label(form.username) }}
+			{{ form_errors(form.username) }}
+			{{ form_widget(form.username, {'attr': {'class': 'form-control'}}) }}
+		</div>
+		<div class="form-group  col-sm-4">
+			{{ form_label(form.email) }}
+			{{ form_errors(form.email) }}
+			{{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
+		</div>
+		<div class="form-group  col-sm-4">
+		{{ form_widget(form.save, {'attr': {'class': 'btn  btn-default'}}) }}
+	</div>
+	</div>
+		{{ form_widget(form) }}
+		{{ form_end(form) }}
+
+		{% if app.request.hasPreviousSession %}
+			{% for type, messages in app.session.flashBag.all %}
+				{% for message in messages %}
+					<div class="{{ type }}">
+						{{ message|trans({}, 'FOSUserBundle') }}
+					</div>
+				{% endfor %}
+			{% endfor %}
+		{% endif %}
+		<a class="btn btn-default" href="{{ path('fos_user_change_password') }}" >Modifier mon mot de passe</a>
+	</div>
 	<h3>Mes annonces</h3>
 	{% if articles is not empty %}
 		<div>
@@ -74,41 +113,7 @@
 	{% else %}
 		<p>aucune inscription</p>
 	{% endif %}
-
-	<h3>Mes informations</h3>
-
-	{% for message in app.session.flashbag.get('notice') %}
-
-		<p>{{ message }}</p>
-
-	{% endfor %}
-	{{ form_start(form) }}
-
-	<div class="form-group">
-		{{ form_label(form.username) }}
-		{{ form_errors(form.username) }}
-		{{ form_widget(form.username, {'attr': {'class': 'form-control'}}) }}
 	</div>
-	<div class="form-group">
-		{{ form_label(form.email) }}
-		{{ form_errors(form.email) }}
-		{{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
-	</div>
-	{{ form_widget(form.save, {'attr': {'class': 'btn  btn-default'}}) }}
-
-	{{ form_widget(form) }}
-	{{ form_end(form) }}
-
-	{% if app.request.hasPreviousSession %}
-		{% for type, messages in app.session.flashBag.all %}
-			{% for message in messages %}
-				<div class="{{ type }}">
-					{{ message|trans({}, 'FOSUserBundle') }}
-				</div>
-			{% endfor %}
-		{% endfor %}
-	{% endif %}
-	<a class="btn btn-default" href="{{ path('fos_user_change_password') }}" >Modifier mon mot de passe</a>
 {% endblock %}
 
 
