@@ -27,7 +27,7 @@ body{
 	text-align: center;
 }
 
-/* index */
+
 .indexContainer{
 	margin-top: 100px;
 }
@@ -52,19 +52,19 @@ body{
 		margin-bottom: 30px;
 	}
 }
-.formulaire, .filter, .listContent, .profilContent{
+.formulaire, .filter, .listContent, .profilContent, .detailContent{
 	background-color: white;
 	padding: 20px;
 	box-shadow: 0px 0px 15px #292929;
 	border-radius: 7px;
 }
-.formulaire .btn-default{
+.formulaire .btn-default, .detailContent .btn-default{
 	background-color: #F8771c;
 	color: white;
 	border: 0;
 	padding: 10px 15px;
 }
-.formulaire .btn-default:hover{
+.formulaire .btn-default:hover, .detailContent .btn-default:hover{
 	background-color: #454545;
 	color: white;
 	border: 0;
@@ -116,11 +116,45 @@ body{
 	text-align: center;
 }
 
-.profilContent h3{
+.profilContent h3, .detailContent h3{
 	margin-top: 0px;
 }
 .profilInformation{
 	border-bottom: 1px solid #F8771c;
 	padding-bottom: 20px;
 	margin-bottom: 20px;
+}
+.titre{
+	border-bottom: 1px solid #F8771c;
+	padding-bottom: 15px;
+	margin-bottom: 25px;
+}
+.detailContent h4{
+	margin-top: 40px;
+}
+.comment{
+	padding: 10px;
+}
+.comment b{
+	color: #F8771c;
+}
+.comment p{
+	margin-bottom: 0px;
+}
+.questions{
+	margin-top: 20px;
+}
+.modif{
+	margin-top: 25px;
+}
+@media screen and (max-width: 767px) {
+	.modif{
+		margin-top: 0px;
+	}
+}
+.profilContent .nav{
+	margin-bottom: 20px !important;
+}
+.ancien{
+	font-size: 14px;
 }

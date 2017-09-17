@@ -1,75 +1,87 @@
 {% extends "PWEvmeetBundle::layout.html.twig" %}
 
+{% block title %}
+	{{ parent() }}  Détail
+{% endblock %}
+
 {% block body %}
-
-	<h3>{{ article.lieu }} - {{ article.dateInvitation|date('d/m/Y') }} - {{ article.dateInvitation|date('H:i') }}</h3>
-	<p>Posté par {{ article.user.username }}</p>
-	<p>Niveau : {{ levelTranslate.translate(article.niveauMin) }} / {{ levelTranslate.translate(article.niveauMax) }}</p>
-	
-	{% if article.commentaire is not null %}
-		<h4>Commentaire</h4>
-		<p>{{ article.commentaire }}</p>
-	{% endif %}
-
-	{% if article.user !=  user %}
-		<p>Nombre de places restantes : {{ article.nbPlace }}</p>
-		{% if registredUsers is empty %}
-			{% if article.nbPlace > 0 %}
-				<a href="{{ path('pw_evmeet_inscription', { 'id': article.id }) }}" class="btn btn-default">S'inscrire</a>
-			{% endif %}	
-		{% else %}	
-			{% for userRegistred in registredUsers %}
-				{% if userRegistred == user %}
-					<a href="{{ path('pw_evmeet_desinscription', { 'id': article.id }) }}" class="btn btn-default">Se désinscrire</a>
-				{% else %}	
-					{% if article.nbPlace > 0 %}
-						<a href="{{ path('pw_evmeet_inscription', { 'id': article.id }) }}" class="btn btn-default">S'inscrire</a>
-					{% endif %}
-				{% endif %}	
-			{% endfor %}
-		{% endif %}	
-	{% endif %}
-
-	<p>Utilisateur(s) enregistré(s)</p>
-
-	{% if registredUsers is not empty %}
-
-		{% for userRegistred in registredUsers %}
-			{{ userRegistred.username }} 
-		{% endfor %}
-	{% else %}
-		<p>Aucun inscrit</p>
-	{% endif %}	
-
-	{% if is_granted('ROLE_USER') %}
-
-		<h4>Poser une question</h4>
-
-		{{ form_start(form) }}
-
-		<div class="form-group">
-			{{ form_errors(form.content) }}
-			{{ form_widget(form.content, {'attr': {'class': 'form-control'}}) }}
+	<div class="detailContent">
+		<div class="titre">
+			<h3>{{ article.lieu }}</h3>
+			<h3 class="hidden-xs">{{ article.dateInvitation|localizeddate('none', 'none', null, null, 'EEEE d MMMM Y') }} à {{ article.dateInvitation|date('H:i') }}</h3>
+			<h3 class="hidden-sm hidden-md hidden-lg">{{ article.dateInvitation|date("d/m/Y") }} à {{ article.dateInvitation|date('H:i') }}</h3>
 		</div>
 
-		{{ form_widget(form.save, {'attr': {'class': 'btn  btn-default', 'value' : ' '}}) }}
+		<p>Posté par <b>{{ article.user.username }}</b></p>
+		<p>Niveau : <b>{{ levelTranslate.translate(article.niveauMin) }} / {{ levelTranslate.translate(article.niveauMax) }}</b></p>
 
-		{{ form_widget(form) }}
+		<h4>Commentaire</h4>
+		{% if article.commentaire is not null %}
+			<p>{{ article.commentaire }}</p>
+		{% else %}
+			<p>Aucun commentaire n'a été ajouté à cette sortie</p>
+		{% endif %}
 
-		{{ form_end(form) }}
+		{% if article.user !=  user %}
+			<h4>Nombre de places restantes : {{ article.nbPlace }}</h4>
+			{% if registredUsers is empty %}
+				{% if article.nbPlace > 0 %}
+					<a href="{{ path('pw_evmeet_inscription', { 'id': article.id }) }}" class="btn btn-default">S'inscrire</a>
+				{% endif %}	
+			{% else %}	
+				{% for userRegistred in registredUsers %}
+					{% if userRegistred == user %}
+						<a href="{{ path('pw_evmeet_desinscription', { 'id': article.id }) }}" class="btn btn-default">Se désinscrire</a>
+					{% else %}	
+						{% if article.nbPlace > 0 %}
+							<a href="{{ path('pw_evmeet_inscription', { 'id': article.id }) }}" class="btn btn-default">S'inscrire</a>
+						{% endif %}
+					{% endif %}	
+				{% endfor %}
+			{% endif %}	
+		{% endif %}
 
-	{% else %}    
-		<p><a href="{{ path('fos_user_security_login') }}" >Connectez-vous</a> ou <a href="{{ path('fos_user_registration_register')}}">inscrivez-vous</a> pour poser une question</p>
-	{% endif %}
+		<h4>Utilisateur(s) enregistré(s)</h4>
 
-	{% if comments is not empty %}
+		{% if registredUsers is not empty %}
+			{% for userRegistred in registredUsers %}
+				{{ userRegistred.username }} 
+			{% endfor %}
+		{% else %}
+			<p>Aucun inscrit</p>
+		{% endif %}	
+
 		<h4>Questions</h4>
-		{% for comment in comments %}
-			<div>
-				<p>{{ comment.user.username }}</p>
-				<p>{{ comment.content }}</p>
+		{% if is_granted('ROLE_USER') %}
+
+			{{ form_start(form) }}
+
+			<div class="form-group">
+				{{ form_errors(form.content) }}
+				{{ form_widget(form.content, {'attr': {'class': 'form-control'}}) }}
 			</div>
-		{% endfor %}
-	{% endif %}
+
+			{{ form_widget(form.save, {'attr': {'class': 'btn  btn-default', 'value' : ' '}}) }}
+
+			{{ form_widget(form) }}
+
+			{{ form_end(form) }}
+
+		{% else %}    
+			<p><a href="{{ path('fos_user_security_login') }}" >Connectez-vous</a> ou <a href="{{ path('fos_user_registration_register')}}">inscrivez-vous</a> pour poser une question</p>
+		{% endif %}
+
+		<div class="questions">
+			{% if comments is not empty %}
+				{% for comment in comments %}
+					<div class="comment">
+						<p><b>{{ comment.user.username }} : </b> {{ comment.content }}</p>
+					</div>
+				{% endfor %}
+			{% else %}  
+				<p>Aucune question pour l'instant</p>
+			{% endif %}
+		</div>
+	</div>
 
 {% endblock %}

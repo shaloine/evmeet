@@ -3,116 +3,128 @@
 {% block body %}
 	<div class="profilContent">
 		<div class="profilInformation">
-		<h3>Mes informations</h3>
+			<h3>Mes informations</h3>
 
-		{% for message in app.session.flashbag.get('notice') %}
+			{% for message in app.session.flashbag.get('notice') %}
 
-			<p>{{ message }}</p>
+				<p>{{ message }}</p>
 
-		{% endfor %}
-		{{ form_start(form) }}
-		<div class="row">
-		<div class="form-group col-sm-4">
-			{{ form_label(form.username) }}
-			{{ form_errors(form.username) }}
-			{{ form_widget(form.username, {'attr': {'class': 'form-control'}}) }}
-		</div>
-		<div class="form-group  col-sm-4">
-			{{ form_label(form.email) }}
-			{{ form_errors(form.email) }}
-			{{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
-		</div>
-		<div class="form-group  col-sm-4">
-		{{ form_widget(form.save, {'attr': {'class': 'btn  btn-default'}}) }}
-	</div>
-	</div>
-		{{ form_widget(form) }}
-		{{ form_end(form) }}
-
-		{% if app.request.hasPreviousSession %}
-			{% for type, messages in app.session.flashBag.all %}
-				{% for message in messages %}
-					<div class="{{ type }}">
-						{{ message|trans({}, 'FOSUserBundle') }}
-					</div>
-				{% endfor %}
 			{% endfor %}
-		{% endif %}
-		<a class="btn btn-default" href="{{ path('fos_user_change_password') }}" >Modifier mon mot de passe</a>
-	</div>
-	<h3>Mes annonces</h3>
-	{% if articles is not empty %}
-		<div>
-			<table class="table table-responsive">
-				<thead>
-					<tr>
-						<th>Date</th>
-						<th>Lieu</th>
-						<th>Action</th>
-					</tr>
-				</thead>
-				<tbody>
-					{% for article in articles %}
-						<tr>
-							<td>{{ article.dateInvitation|date('d/m/Y') }}</td>
-							<td>{{ article.lieu }}</td>
-							<td>
-								<a href="{{ path('pw_evmeet_detail', { 'id': article.id }) }}" class="btn btn-primary btn-xs" title="Voir"><span class="glyphicon glyphicon-search"></span></a>
-								<button type="button" class="btn btn-danger btn-xs" title="Supprimer" data-toggle="modal" data-target="#articleDialog{{ article.id }}"><span class="glyphicon glyphicon-remove"></span></button>
-							</td>
-						</tr>
-						<div class="modal fade" id="articleDialog{{ article.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-							<div class="modal-dialog">
-								<div class="modal-content">
-									<div class="modal-header">
-										<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-										<h4 class="modal-title" id="myModalLabel">Confirmation requise</h4>
-									</div>
-									<div class="modal-body">
-										Voulez vous supprimer cette annonce ?
-									</div>
-									<div class="modal-footer">
-										<button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
-										<a href="{{ path('pw_evmeet_delete', { 'id': article.id }) }}" class="btn btn-danger">Confirmer</a>
-									</div>
-								</div><!-- /.modal-content -->
-							</div><!-- /.modal-dialog -->
-						</div><!-- /.modal -->
-					{% endfor %}
-				</tbody>
-			</table>
-		</div>
-	{% else %}
-		<p>aucune annonce</p>
-	{% endif %}
+			{{ form_start(form) }}
+			<div class="row">
+				<div class="form-group col-sm-4">
+					{{ form_label(form.username) }}
+					{{ form_errors(form.username) }}
+					{{ form_widget(form.username, {'attr': {'class': 'form-control'}}) }}
+				</div>
+				<div class="form-group  col-sm-4">
+					{{ form_label(form.email) }}
+					{{ form_errors(form.email) }}
+					{{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
+				</div>
+				<div class="form-group  col-sm-4">
+					{{ form_widget(form.save, {'attr': {'class': 'btn  btn-default modif'}}) }}
+				</div>
+			</div>
+			{{ form_widget(form) }}
+			{{ form_end(form) }}
 
-	<h3>Mes inscriptions</h3>
-	{% if registredArticles is not empty %}
-		<div>
-			<table class="table table-responsive">
-				<thead>
-					<tr>
-						<th>Date</th>
-						<th>Lieu</th>
-						<th>Action</th>
-					</tr>
-				</thead>
-				<tbody>
-					{% for article in registredArticles %}
-						<tr>
-							<td>{{ article.dateInvitation|date('d/m/Y') }}</td>
-							<td>{{ article.lieu }}</td>
-							<td>
-								<a href="{{ path('pw_evmeet_detail', { 'id': article.id }) }}" class="btn btn-primary btn-xs" title="Voir"><span class="glyphicon glyphicon-search"></span></a>
-							</td>
-						</tr>
+			{% if app.request.hasPreviousSession %}
+				{% for type, messages in app.session.flashBag.all %}
+					{% for message in messages %}
+						<div class="{{ type }}">
+							{{ message|trans({}, 'FOSUserBundle') }}
+						</div>
 					{% endfor %}
-				</tbody>
-			</table>
+				{% endfor %}
+			{% endif %}
+			<a class="btn btn-default" href="{{ path('fos_user_change_password') }}" >Modifier mon mot de passe</a>
 		</div>
-	{% else %}
-		<p>aucune inscription</p>
-	{% endif %}
+
+		<ul class="nav nav-pills">
+			<li class="active"><a data-toggle="tab" href="#annonces">Mes annonces</a></li>
+			<li><a data-toggle="tab" href="#inscription">Mes inscriptions</a></li>
+		</ul>
+
+		<div class="tab-content">
+			<div id="annonces" class="tab-pane fade in active">
+				<h3>Mes annonces <span class="ancien">(<a href="#">Annonces passées</a>)</span></h3>
+				{% if articles is not empty %}
+					<div>
+						<table class="table table-responsive">
+							<thead>
+								<tr>
+									<th>Date</th>
+									<th>Lieu</th>
+									<th>Action</th>
+								</tr>
+							</thead>
+							<tbody>
+								{% for article in articles %}
+									<tr>
+										<td>{{ article.dateInvitation|date('d/m/Y') }}</td>
+										<td>{{ article.lieu }}</td>
+										<td>
+											<a href="{{ path('pw_evmeet_detail', { 'id': article.id }) }}" class="btn btn-primary btn-xs" title="Voir"><span class="glyphicon glyphicon-search"></span></a>
+											<button type="button" class="btn btn-danger btn-xs" title="Supprimer" data-toggle="modal" data-target="#articleDialog{{ article.id }}"><span class="glyphicon glyphicon-remove"></span></button>
+										</td>
+									</tr>
+									<div class="modal fade" id="articleDialog{{ article.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+										<div class="modal-dialog">
+											<div class="modal-content">
+												<div class="modal-header">
+													<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+													<h4 class="modal-title" id="myModalLabel">Confirmation requise</h4>
+												</div>
+												<div class="modal-body">
+													Voulez vous supprimer cette annonce ?
+												</div>
+												<div class="modal-footer">
+													<button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+													<a href="{{ path('pw_evmeet_delete', { 'id': article.id }) }}" class="btn btn-danger">Confirmer</a>
+												</div>
+											</div><!-- /.modal-content -->
+										</div><!-- /.modal-dialog -->
+									</div><!-- /.modal -->
+								{% endfor %}
+							</tbody>
+						</table>
+					</div>
+				{% else %}
+					<p>aucune annonce</p>
+				{% endif %}
+			</div>
+
+			<div id="inscription" class="tab-pane fade">
+				<h3>Mes inscriptions</h3>
+				{% if registredArticles is not empty %}
+					<div>
+						<table class="table table-responsive">
+							<thead>
+								<tr>
+									<th>Date</th>
+									<th>Lieu</th>
+									<th>Action</th>
+								</tr>
+							</thead>
+							<tbody>
+								{% for article in registredArticles %}
+									<tr>
+										<td>{{ article.dateInvitation|date('d/m/Y') }}</td>
+										<td>{{ article.lieu }}</td>
+										<td>
+											<a href="{{ path('pw_evmeet_detail', { 'id': article.id }) }}" class="btn btn-primary btn-xs" title="Voir"><span class="glyphicon glyphicon-search"></span></a>
+										</td>
+									</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+					</div>
+				{% else %}
+					<p>aucune inscription</p>
+				{% endif %}
+			</div>
+		</div>
 	</div>
 {% endblock %}
 
