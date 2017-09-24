@@ -4,6 +4,7 @@ namespace PW\EvmeetBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 use PW\EvmeetBundle\Entity\Article;
 use PW\EvmeetBundle\Entity\Comment;
@@ -20,11 +21,17 @@ use DateTimeZone;
 
 class CoreController extends Controller
 {
+	/**
+     * @Route("/", name="pw_evmeet_homepage")
+     */
 	public function indexAction()
 	{
 		return $this->render('PWEvmeetBundle:Core:index.html.twig');
 	}
 
+	/**
+     * @Route("/liste", name="pw_evmeet_liste")
+     */
 	public function listeAction(Request $request)
 	{
 		
@@ -56,6 +63,9 @@ class CoreController extends Controller
 
 	}
 
+	/**
+     * @Route("/creation", name="pw_evmeet_creation")
+     */
 	public function creationAction(Request $request)
 	{
 
@@ -99,6 +109,9 @@ class CoreController extends Controller
 
 	}
 
+	/**
+     * @Route("/detail/{id}", name="pw_evmeet_detail")
+     */
 	public function detailAction($id, Request $request)
 	{
 		$comment = new Comment();
@@ -143,6 +156,9 @@ class CoreController extends Controller
 		));
 	}
 
+	/**
+     * @Route("/profil", name="pw_evmeet_profil")
+     */
 	public function profilAction(Request $request)
 	{
 		if ($this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
@@ -209,6 +225,9 @@ class CoreController extends Controller
 		return $this->redirectToRoute('pw_evmeet_homepage');
 	}
 
+	/**
+     * @Route("/delete/{id}", name="pw_evmeet_delete")
+     */
 	public function deleteArticleAction($id)
 	{
 		if ($this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
@@ -235,6 +254,9 @@ class CoreController extends Controller
 		return $this->redirectToRoute('pw_evmeet_homepage');
 	}
 
+	/**
+     * @Route("/inscription/{id}", name="pw_evmeet_inscription")
+     */
 	public function inscriptionArticleAction($id)
 	{
 		if ($this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
@@ -259,6 +281,10 @@ class CoreController extends Controller
 
 		return $this->redirectToRoute('pw_evmeet_homepage');
 	}
+
+	/**
+     * @Route("/desinscription/{id}", name="pw_evmeet_desinscription")
+     */
 	public function desinscriptionArticleAction($id)
 	{
 		if ($this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
@@ -277,6 +303,10 @@ class CoreController extends Controller
 
 		return $this->redirectToRoute('pw_evmeet_homepage');
 	}
+
+	/**
+     * @Route("/annonces-passees", name="pw_evmeet_pastArticle")
+     */
 	public function pastArticleAction()
 	{
 		if ($this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
@@ -292,6 +322,10 @@ class CoreController extends Controller
 
 		return $this->redirectToRoute('pw_evmeet_homepage');
 	}
+
+	/**
+     * @Route("/inscriptions-passees", name="pw_evmeet_pastInscription")
+     */
 	public function pastInscriptionAction()
 	{
 		if ($this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
