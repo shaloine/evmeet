@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Erreur: {{ status_text }}</title>
+
+    {% block stylesheets %}
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="{{ asset('css/error.css') }}" />
+    {% endblock %}
+</head>
+<body>
+    <div class="container contenu">
+        <h1>Oups! Une erreur est apparu</h1>
+        <h2>Le server retourne "{{ status_code }} {{ status_text }}".</h2>
+
+        <div>
+            Quelque chose est cassé. Merci de nous faire savoir comment cette erreur est survenue.
+            Nous la reparerons le plus vite possible. désolé du dérangement.
+        </div>
+        <a class="link" href="{{ path('pw_evmeet_homepage') }}">Retour au site</a>
+    </div>
+</body>
+{% block javascripts %}
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+{% endblock %}
+</html>
+

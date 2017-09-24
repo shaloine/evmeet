@@ -1,0 +1,21 @@
+body{
+	margin:0;
+	padding:0;
+	background-color: #F4F4F4;
+	background:url('../images/error.jpg') no-repeat center fixed;
+	-webkit-background-size:cover;
+	background-size:cover;
+	padding-top: 70px;
+}
+.contenu{
+	background-color: white;
+	padding: 20px;
+	box-shadow: 0px 0px 15px #292929;
+	border-radius: 7px;
+}
+.link{
+	color: #F8771c;
+}
+.link:hover{
+	color: #454545;
+}
