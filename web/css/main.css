@@ -158,3 +158,15 @@ body{
 .ancien{
 	font-size: 14px;
 }
+.link{
+	color: #F8771c;
+}
+.link:hover{
+	color: #454545;
+}
+.active .pills{
+	background-color: #F8771c !important;
+}
+.pills, .pills:hover{
+	color: #F8771c;
+}

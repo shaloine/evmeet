@@ -46,13 +46,13 @@
 		</div>
 
 		<ul class="nav nav-pills">
-			<li class="active"><a data-toggle="tab" href="#annonces">Mes annonces</a></li>
-			<li><a data-toggle="tab" href="#inscription">Mes inscriptions</a></li>
+			<li class="active"><a data-toggle="tab" href="#annonces" class="pills">Mes annonces</a></li>
+			<li><a data-toggle="tab" href="#inscription" class="pills">Mes inscriptions</a></li>
 		</ul>
 
 		<div class="tab-content">
 			<div id="annonces" class="tab-pane fade in active">
-				<h3>Mes annonces <span class="ancien">(<a href="{{ path('pw_evmeet_pastArticle') }}">Annonces passées</a>)</span></h3>
+				<h3>Mes annonces <span class="ancien">(<a href="{{ path('pw_evmeet_pastArticle') }}" class="link">Annonces passées</a>)</span></h3>
 				{% if articles is not empty %}
 					<div>
 						<table class="table table-responsive">
@@ -100,7 +100,7 @@
 			</div>
 
 			<div id="inscription" class="tab-pane fade">
-				<h3>Mes inscriptions <span class="ancien">(<a href="{{ path('pw_evmeet_pastInscription') }}">Inscriptions passées</a>)</span></h3>
+				<h3>Mes inscriptions <span class="ancien">(<a href="{{ path('pw_evmeet_pastInscription') }}" class="link">Inscriptions passées</a>)</span></h3>
 				{% if inscriptions is not empty %}
 					<div>
 						<table class="table table-responsive">

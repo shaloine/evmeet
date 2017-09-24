@@ -19,6 +19,8 @@
                 <input type="password" id="password" class="form-control" name="_password" required="required" />
             </div>
 
+            <p><a href="{{ path('fos_user_resetting_request')}}" class="link">Mot de passe oublié</a></p>
+
             <div class="form-group">
                 <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
                 <label for="remember_me">{{ 'security.login.remember_me'|trans }}</label>
