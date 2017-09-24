@@ -30,11 +30,18 @@ class User extends BaseUser
      */
   	private $comments;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="PW\EvmeetBundle\Entity\Article", inversedBy="registredUsers")
+     * @ORM\JoinTable(name="users_articles")
+     */
+    private $registredArticles;
+
     public function __construct()
     {
         parent::__construct();
         
         $this->articles = new ArrayCollection();
+        $this->registredArticles = new ArrayCollection();
         $this->comments = new ArrayCollection();
         $this->roles[] = 'ROLE_USER';
     }
@@ -105,5 +112,39 @@ class User extends BaseUser
     public function getComments()
     {
         return $this->comments;
+    }
+
+    /**
+     * Add registredArticle
+     *
+     * @param \PW\EvmeetBundle\Entity\Article $registredArticle
+     *
+     * @return User
+     */
+    public function addRegistredArticle(\PW\EvmeetBundle\Entity\Article $registredArticle)
+    {
+        $this->registredArticles[] = $registredArticle;
+
+        return $this;
+    }
+
+    /**
+     * Remove registredArticle
+     *
+     * @param \PW\EvmeetBundle\Entity\Article $registredArticle
+     */
+    public function removeRegistredArticle(\PW\EvmeetBundle\Entity\Article $registredArticle)
+    {
+        $this->registredArticles->removeElement($registredArticle);
+    }
+
+    /**
+     * Get registredArticles
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getRegistredArticles()
+    {
+        return $this->registredArticles;
     }
 }

@@ -1,0 +1,48 @@
+{% extends "PWEvmeetBundle::layout.html.twig" %}
+
+{% block title %}
+	{{ parent() }}  Profil
+{% endblock %}
+
+{% block body %}
+	<div class="profilContent">
+		
+		<div class="tab-content">
+			<div id="annonces" class="tab-pane fade in active">
+				<h3>Mes inscriptions passées <span class="ancien">(<a href="{{ path('pw_evmeet_profil') }}">retour profil</a>)</span></h3>
+				{% if articles is not empty %}
+					<div>
+						<table class="table table-responsive">
+							<thead>
+								<tr>
+									<th>Date</th>
+									<th>Lieu</th>
+									<th>Action</th>
+								</tr>
+							</thead>
+							<tbody>
+								{% for article in articles %}
+										<tr>
+											<td>{{ article.dateInvitation|date('d/m/Y') }}</td>
+											<td>{{ article.lieu }}</td>
+											<td>
+												<a href="{{ path('pw_evmeet_detail', { 'id': article.id }) }}" class="btn btn-primary btn-xs" title="Voir"><span class="glyphicon glyphicon-search"></span></a>
+											</td>
+										</tr>						
+								{% endfor %}
+							</tbody>
+						</table>
+					</div>
+				{% else %}
+					<p>aucune inscription</p>
+				{% endif %}
+			</div>
+
+		</div>
+	</div>
+{% endblock %}
+
+
+
+
+

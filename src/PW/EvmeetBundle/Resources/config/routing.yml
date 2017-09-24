@@ -40,6 +40,16 @@ pw_evmeet_desinscription:
     defaults:
         _controller: PWEvmeetBundle:Core:desinscriptionArticle
 
+pw_evmeet_pastArticle:
+    path:     /annonces-passees
+    defaults:
+        _controller: PWEvmeetBundle:Core:pastArticle
+
+pw_evmeet_pastInscription:
+    path:     /inscriptions-passees
+    defaults:
+        _controller: PWEvmeetBundle:Core:pastInscription
+
 
 
 

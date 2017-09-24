@@ -5,6 +5,10 @@
   {{ form_stylesheet(form) }}
 {% endblock %}
 
+{% block title %}
+  {{ parent() }}  Création
+{% endblock %}
+
 {% block body %}
   <div class="formulaire">
    {% for message in app.session.flashbag.get('notice') %}

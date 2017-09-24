@@ -5,6 +5,7 @@ namespace PW\EvmeetBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use \DateTime;
 use DateTimeZone;
+use Doctrine\Common\Collections\ArrayCollection;
 
 
 /**
@@ -72,11 +73,17 @@ class Article
      */
     private $user;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="PW\EvmeetBundle\Entity\User", mappedBy="registredArticles")
+     */
+    private $registredUsers;
+
 
     public function __construct()
     {
       $this->dateInvitation = new Datetime();
       $this->dateInvitation->setTimezone(new DateTimeZone('Europe/Paris'));
+      $this->registredUsers = new ArrayCollection();
     }
 
 
@@ -280,5 +287,41 @@ class Article
     public function getTimeStart()
     {
         return $this->timeStart;
+    }
+
+    /**
+     * Add registredUser
+     *
+     * @param \PW\EvmeetBundle\Entity\User $registredUser
+     *
+     * @return Article
+     */
+    public function addRegistredUser(\PW\EvmeetBundle\Entity\User $registredUser)
+    {
+        $registredUser->addRegistredArticle($this);
+        $this->registredUsers[] = $registredUser;
+
+        return $this;
+    }
+
+    /**
+     * Remove registredUser
+     *
+     * @param \PW\EvmeetBundle\Entity\User $registredUser
+     */
+    public function removeRegistredUser(\PW\EvmeetBundle\Entity\User $registredUser)
+    {
+        $registredUser->removeRegistredArticle($this);
+        $this->registredUsers->removeElement($registredUser);
+    }
+
+    /**
+     * Get registredUsers
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getRegistredUsers()
+    {
+        return $this->registredUsers;
     }
 }

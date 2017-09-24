@@ -1,5 +1,9 @@
 {% extends "PWEvmeetBundle::layout.html.twig" %}
 
+{% block title %}
+	{{ parent() }}  Profil
+{% endblock %}
+
 {% block body %}
 	<div class="profilContent">
 		<div class="profilInformation">
@@ -48,7 +52,7 @@
 
 		<div class="tab-content">
 			<div id="annonces" class="tab-pane fade in active">
-				<h3>Mes annonces <span class="ancien">(<a href="#">Annonces passées</a>)</span></h3>
+				<h3>Mes annonces <span class="ancien">(<a href="{{ path('pw_evmeet_pastArticle') }}">Annonces passées</a>)</span></h3>
 				{% if articles is not empty %}
 					<div>
 						<table class="table table-responsive">
@@ -96,8 +100,8 @@
 			</div>
 
 			<div id="inscription" class="tab-pane fade">
-				<h3>Mes inscriptions</h3>
-				{% if registredArticles is not empty %}
+				<h3>Mes inscriptions <span class="ancien">(<a href="{{ path('pw_evmeet_pastInscription') }}">Inscriptions passées</a>)</span></h3>
+				{% if inscriptions is not empty %}
 					<div>
 						<table class="table table-responsive">
 							<thead>
@@ -108,14 +112,15 @@
 								</tr>
 							</thead>
 							<tbody>
-								{% for article in registredArticles %}
-									<tr>
-										<td>{{ article.dateInvitation|date('d/m/Y') }}</td>
-										<td>{{ article.lieu }}</td>
-										<td>
-											<a href="{{ path('pw_evmeet_detail', { 'id': article.id }) }}" class="btn btn-primary btn-xs" title="Voir"><span class="glyphicon glyphicon-search"></span></a>
-										</td>
-									</tr>
+								{% for article in inscriptions %}
+										<tr>
+											<td>{{ article.dateInvitation|date('d/m/Y') }}</td>
+											<td>{{ article.lieu }}</td>
+											<td>
+												<a href="{{ path('pw_evmeet_detail', { 'id': article.id }) }}" class="btn btn-primary btn-xs" title="Voir"><span class="glyphicon glyphicon-search"></span></a>
+											</td>
+										</tr>
+									
 								{% endfor %}
 							</tbody>
 						</table>

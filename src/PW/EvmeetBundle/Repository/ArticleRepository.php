@@ -76,6 +76,89 @@ class ArticleRepository extends \Doctrine\ORM\EntityRepository
 			;
 		}
 		
+		return $qb
+		->getQuery()
+		->getResult()
+		;
+	}
+
+	public function userCurrent($user)
+	{
+		$date_now = new DateTime('NOW' ,new DateTimeZone('Europe/Paris'));
+
+		$qb =  $this->createQueryBuilder('a');
+
+		$qb
+		->where('a.dateInvitation >= :date')
+		->setParameter('date', $date_now)
+		->andWhere('a.user = :user')
+		->setParameter('user', $user)
+		->orderBy('a.dateInvitation', 'ASC')
+		;
+
+		return $qb
+		->getQuery()
+		->getResult()
+		;
+	}
+
+	public function userPast($user)
+	{
+		$date_now = new DateTime('NOW' ,new DateTimeZone('Europe/Paris'));
+
+		$qb =  $this->createQueryBuilder('a');
+
+		$qb
+		->where('a.dateInvitation < :date')
+		->setParameter('date', $date_now)
+		->andWhere('a.user = :user')
+		->setParameter('user', $user)
+		->orderBy('a.dateInvitation', 'ASC')
+		;
+
+		return $qb
+		->getQuery()
+		->getResult()
+		;
+	}
+
+	public function inscriptionCurrent($user)
+	{
+		$date_now = new DateTime('NOW' ,new DateTimeZone('Europe/Paris'));
+
+		$qb =  $this->createQueryBuilder('a');
+
+		$qb
+		->leftJoin('a.registredUsers', 'user')
+		->addSelect('user')
+		->where('a.dateInvitation >= :date')
+		->setParameter('date', $date_now)
+		->andWhere('user  = :user')
+		->setParameter('user', $user)
+		->orderBy('a.dateInvitation', 'ASC')
+		;
+
+		return $qb
+		->getQuery()
+		->getResult()
+		;
+	}
+
+	public function inscriptionPast($user)
+	{
+		$date_now = new DateTime('NOW' ,new DateTimeZone('Europe/Paris'));
+
+		$qb =  $this->createQueryBuilder('a');
+
+		$qb
+		->leftJoin('a.registredUsers', 'user')
+		->addSelect('user')
+		->where('a.dateInvitation < :date')
+		->setParameter('date', $date_now)
+		->andWhere('user  = :user')
+		->setParameter('user', $user)
+		->orderBy('a.dateInvitation', 'ASC')
+		;
 
 		return $qb
 		->getQuery()

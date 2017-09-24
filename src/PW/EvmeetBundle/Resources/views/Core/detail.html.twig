@@ -24,28 +24,20 @@
 
 		{% if article.user !=  user %}
 			<h4>Nombre de places restantes : {{ article.nbPlace }}</h4>
-			{% if registredUsers is empty %}
-				{% if article.nbPlace > 0 %}
-					<a href="{{ path('pw_evmeet_inscription', { 'id': article.id }) }}" class="btn btn-default">S'inscrire</a>
-				{% endif %}	
-			{% else %}	
-				{% for userRegistred in registredUsers %}
-					{% if userRegistred == user %}
-						<a href="{{ path('pw_evmeet_desinscription', { 'id': article.id }) }}" class="btn btn-default">Se désinscrire</a>
-					{% else %}	
-						{% if article.nbPlace > 0 %}
-							<a href="{{ path('pw_evmeet_inscription', { 'id': article.id }) }}" class="btn btn-default">S'inscrire</a>
-						{% endif %}
-					{% endif %}	
-				{% endfor %}
-			{% endif %}	
+			{% if user in article.registredUsers %}
+				<a href="{{ path('pw_evmeet_desinscription', { 'id': article.id }) }}" class="btn btn-default">Se désinscrire</a>
+			{% elseif article.nbPlace > 0 %}
+				<a href="{{ path('pw_evmeet_inscription', { 'id': article.id }) }}" class="btn btn-default">S'inscrire</a>
+			{% endif %}
+			
+
 		{% endif %}
 
 		<h4>Utilisateur(s) enregistré(s)</h4>
 
-		{% if registredUsers is not empty %}
-			{% for userRegistred in registredUsers %}
-				{{ userRegistred.username }} 
+		{% if article.registredUsers is not empty %}
+			{% for user in article.registredUsers %}
+				{{ user.username }} 
 			{% endfor %}
 		{% else %}
 			<p>Aucun inscrit</p>
