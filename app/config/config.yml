@@ -65,22 +65,21 @@ doctrine:
 
 # Swiftmailer Configuration
 swiftmailer:
-    transport: smtp
-    auth_mode: login
-    host:      smtp.nicolasmicallef.com
-    port:      587
-    username:  contact@nicolasmicallef.com
-    password:  motdepasse
+    transport: "%mailer_transport%"
+    auth_mode: "%mailer_auth_mode%"
+    host:      "%mailer_host%"
+    port:      "%mailer_port%"
+    username:  "%mailer_user%"
+    password:  "%mailer_password%"
     spool: { type: memory }
 
 sc_datetimepicker:
     picker: ~
-
 fos_user:
     db_driver: orm 
     firewall_name: main
     user_class: PW\EvmeetBundle\Entity\User
     from_email:
-        address: contact@nicolasmicallef.com
-        sender_name: contact@nicolasmicallef.com
+        address: "%mailer_user%"
+        sender_name: "%mailer_user%"
 
