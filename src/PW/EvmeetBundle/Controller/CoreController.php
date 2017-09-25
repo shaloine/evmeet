@@ -235,15 +235,11 @@ class CoreController extends Controller
 			$em = $this->getDoctrine()->getManager();
 			$article = $em->getRepository('PWEvmeetBundle:Article')->find($id);
 			$listComments = $em->getRepository('PWEvmeetBundle:Comment')->findBy(array('articleID' => $id));
-			$listRegistredUser = $em->getRepository('PWEvmeetBundle:RegistredUser')->findBy(array('articleId' => $id));
 
 			if ($this->getUser()->getId() == $article->getUser()->getId()){
 				$em->remove($article);
 				foreach ($listComments as $comment) {
 					$em->remove($comment);
-				}
-				foreach ($listRegistredUser as $registredUser) {
-					$em->remove($registredUser);
 				}
 				$em->flush();
 			}
