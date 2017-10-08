@@ -105,7 +105,7 @@ class CoreController extends Controller
 			));
 		}
 
-		return $this->redirectToRoute('pw_evmeet_homepage');
+		return $this->redirectToRoute('fos_user_security_login');
 
 	}
 
@@ -222,7 +222,7 @@ class CoreController extends Controller
 
 		}
 
-		return $this->redirectToRoute('pw_evmeet_homepage');
+		return $this->redirectToRoute('fos_user_security_login');
 	}
 
 	/**
@@ -247,7 +247,7 @@ class CoreController extends Controller
 			return $this->redirectToRoute('pw_evmeet_profil');
 		}
 
-		return $this->redirectToRoute('pw_evmeet_homepage');
+		return $this->redirectToRoute('fos_user_security_login');
 	}
 
 	/**
@@ -275,7 +275,7 @@ class CoreController extends Controller
 			
 		}
 
-		return $this->redirectToRoute('pw_evmeet_homepage');
+		return $this->redirectToRoute('fos_user_security_login');
 	}
 
 	/**
@@ -297,7 +297,7 @@ class CoreController extends Controller
 
 		}
 
-		return $this->redirectToRoute('pw_evmeet_homepage');
+		return $this->redirectToRoute('fos_user_security_login');
 	}
 
 	/**
@@ -316,7 +316,7 @@ class CoreController extends Controller
 
 		}
 
-		return $this->redirectToRoute('pw_evmeet_homepage');
+		return $this->redirectToRoute('fos_user_security_login');
 	}
 
 	/**
@@ -335,7 +335,7 @@ class CoreController extends Controller
 
 		}
 
-		return $this->redirectToRoute('pw_evmeet_homepage');
+		return $this->redirectToRoute('fos_user_security_login');
 	}
 
 }

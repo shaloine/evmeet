@@ -170,3 +170,7 @@ body{
 .pills, .pills:hover{
 	color: #F8771c;
 }
+.cc-color-override--2018998589 .cc-btn:hover{
+	background-color: #454545 !important;
+	text-decoration: none;
+}

@@ -9,7 +9,32 @@
 	{% block stylesheets %}
 		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{ asset('css/main.css') }}" />
-	{% endblock %}
+    <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.css" />
+    <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.css" />
+    <script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js"></script>
+    <script>
+    window.addEventListener("load", function(){
+      window.cookieconsent.initialise({
+        "palette": {
+          "popup": {
+            "background": "#edeff5",
+            "text": "#838391"
+          },
+          "button": {
+            "background": "#f8771c",
+            "text": "#ffffff"
+          }
+        },
+        "theme": "edgeless",
+        "content": {
+          "message": "Ce site utilise des cookies pour vous offrir le meilleur service. En poursuivant votre navigation, vous acceptez l’utilisation des cookies.",
+          "dismiss": "J’accepte",
+          "link": "En savoir plus",
+          "href": "https://www.cnil.fr/fr/cookies-traceurs-que-dit-la-loi"
+        }
+      })});
+    </script>
+  {% endblock %}
 </head>
 
 <body>
@@ -27,7 +52,7 @@
       </div>
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav navbar-right">
-            <li><a href="{{ path('pw_evmeet_liste') }}">Annonces</a></li>
+          <li><a href="{{ path('pw_evmeet_liste') }}">Annonces</a></li>
           {% if is_granted('ROLE_USER') %}
             <li><a href="{{ path('pw_evmeet_creation') }}">Créer une annonce</a></li>
             <li><a href="{{ path('pw_evmeet_profil') }}">Mon profil</a></li>
@@ -43,6 +68,8 @@
 
   <div class="container">
     {% block body %}
+      {% block fos_user_content %}
+      {% endblock fos_user_content %}
     {% endblock %}
   </div>
   
